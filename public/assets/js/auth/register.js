@@ -6,9 +6,10 @@
     const providerFields = document.querySelectorAll('.provider-fields');
 
     if (signUpForm && signUpMessages && signUpButton && roleSelect && providerFields) {
+        // Show/hide mentor-specific fields based on role
         roleSelect.addEventListener('change', () => {
-            const isProvider = roleSelect.value === 'provider';
-            providerFields.forEach(field => field.classList.toggle('d-none', !isProvider));
+            const isMentor = roleSelect.value === 'mentor';
+            providerFields.forEach(field => field.classList.toggle('d-none', !isMentor));
         });
 
         signUpForm.addEventListener('submit', async (event) => {
@@ -21,7 +22,19 @@
             const form = event.target;
             const formData = new FormData(form);
             const csrfToken = form.querySelector('input[name="_token"]').value;
-            const registerUrl = window.apiConfig.baseUrl + window.apiConfig.endpoints.register;
+            const role = formData.get('role');
+
+            // Determine API endpoint based on role
+            let registerUrl;
+            if (role === 'student') {
+                registerUrl = window.apiConfig.baseUrl + window.apiConfig.endpoints.registerStudent;
+            } else if (role === 'mentor') {
+                registerUrl = window.apiConfig.baseUrl + window.apiConfig.endpoints.registerMentor;
+            } else {
+                showToast('Please select a valid role.', 'danger');
+                toggleLoading(signUpButton, false);
+                return;
+            }
 
             try {
                 console.log('Submitting sign-up form to:', registerUrl);
@@ -37,19 +50,22 @@
                 const result = await response.json();
                 console.log('Sign-up response:', { status: response.status, result });
 
-                if (response.status === 201 && result.redirect) {
+                if (response.status === 201) {
                     signUpMessages.classList.add('text-success');
-                    signUpMessages.innerText = result.message;
-                    console.log('Redirecting to:', result.redirect);
-                    setTimeout(() => {
-                        window.location.href = result.redirect;
-                    }, 2000);
+                    signUpMessages.innerText = result.message || 'Registration successful!';
+                    if (result.redirect) {
+                        setTimeout(() => {
+                            window.location.href = result.redirect;
+                        }, 2000);
+                    }
                 } else if (response.status === 422 || response.status === 401) {
                     signUpMessages.classList.add('text-danger');
                     const errors = result.errors || {};
-                    if (errors.email) showToast(errors.email[0], 'danger');
-                    if (errors.password) showToast(errors.password[0], 'danger');
-                    if (errors.role) showToast(errors.role[0], 'danger');
+                    for (const key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            showToast(errors[key][0], 'danger');
+                        }
+                    }
                     if (result.message) showToast(result.message, 'danger');
                     clearFormInputs(form, ['_token', 'role']);
                 } else {

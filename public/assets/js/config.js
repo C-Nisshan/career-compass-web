@@ -8,7 +8,8 @@
                 forgotPassword: '/auth/forgot-password',
                 verifyOtp: '/auth/verify-otp',
                 resetPassword: '/auth/reset-password',
-                register: '/auth/register',
+                registerStudent: '/auth/register/student',
+                registerMentor: '/auth/register/mentor',
             },
         };
     }

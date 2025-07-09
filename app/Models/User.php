@@ -48,4 +48,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Profile::class, 'user_id', 'uuid');
     }
+
+    public function studentProfile()
+    {
+        return $this->hasOne(StudentProfile::class, 'user_id', 'uuid');
+    }
+
+    public function mentorProfile()
+    {
+        return $this->hasOne(MentorProfile::class, 'user_id', 'uuid');
+    }
 }
