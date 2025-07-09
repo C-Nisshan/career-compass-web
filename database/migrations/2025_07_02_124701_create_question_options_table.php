@@ -12,11 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('question_options', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('question_id')->constrained()->onDelete('cascade');
+            $table->uuid('uuid')->primary();
+            $table->uuid('question_id');
             $table->string('option_text');
             $table->timestamps();
+
+            $table->foreign('question_id')->references('uuid')->on('questions')->onDelete('cascade');
         });
+
     }
 
     /**

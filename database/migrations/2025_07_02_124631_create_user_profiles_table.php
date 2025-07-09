@@ -11,14 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_profiles', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('full_name');
-            $table->string('gender')->nullable();
-            $table->date('dob')->nullable();
-            $table->string('location')->nullable();
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->uuid('uuid')->primary();
+            $table->uuid('user_id');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('nic_number')->nullable();
+            $table->string('profile_picture_path')->nullable();
+            $table->enum('verified_status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('completion_step')->default('none');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('user_id')->references('uuid')->on('users')->onDelete('cascade');
         });
     }
 

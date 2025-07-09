@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resources', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('uuid')->primary();
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('url');
-            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
+            $table->uuid('category_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('category_id')->references('uuid')->on('categories')->onDelete('set null');
         });
     }
 

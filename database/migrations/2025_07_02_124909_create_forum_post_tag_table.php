@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('forum_post_tag', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('forum_post_id')->constrained('forum_posts')->onDelete('cascade');
-            $table->foreignId('forum_tag_id')->constrained('forum_tags')->onDelete('cascade');
+            $table->uuid('uuid')->primary();
+            $table->uuid('forum_post_id');
+            $table->uuid('forum_tag_id');
+
+            $table->foreign('forum_post_id')->references('uuid')->on('forum_posts')->onDelete('cascade');
+            $table->foreign('forum_tag_id')->references('uuid')->on('forum_tags')->onDelete('cascade');
         });
     }
 

@@ -1,38 +1,29 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Booker\RoomController as BookerRoomController;
+use App\Http\Controllers\Provider\RoomController as ProviderRoomController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Admin\AdminController;
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+// Public API routes
+Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
+Route::post('/auth/register', [RegisterController::class, 'register'])->middleware('throttle:100,1');
+Route::post('/auth/verify-registration-otp', [RegisterController::class, 'verifyRegistrationOtp'])->middleware('throttle:100,1');
+Route::post('/auth/register-student', [RegisterController::class, 'registerStudent'])->middleware('throttle:100,1');
+Route::post('/auth/register-provider', [RegisterController::class, 'registerProvider'])->middleware('throttle:100,1');
+Route::post('/auth/forgot-password', [PasswordResetController::class, 'sendOtp'])->name('api.forgot-password');
+Route::post('/auth/verify-otp', [PasswordResetController::class, 'verifyOtp'])->name('api.verify-otp');
+Route::post('/auth/reset-password', [PasswordResetController::class, 'resetPassword'])->name('api.reset-password');
 
-Route::prefix('auth')->group(function () {
+// Protected API routes
+Route::middleware('jwt.cookie')->group(function () {
+    Route::get('/me', [LoginController::class, 'me'])->name('api.me');
+    Route::post('/auth/logout', [LogoutController::class, 'logout'])->name('api.logout');
+    Route::post('/refresh', [LoginController::class, 'refresh'])->name('api.refresh');
+    Route::get('/admin/pending-registrations', [AdminController::class, 'pendingRegistrations']);
+    Route::post('/admin/review-registration/{uuid}', [AdminController::class, 'reviewRegistration']);
 });
-
-// JWT-protected routes
-Route::middleware('auth:api')->group(function () {
-    Route::get('profile', [AuthController::class, 'me']);
-    Route::post('logout', [AuthController::class, 'logout']);
-
-    // 🟢 Student-only routes
-    Route::middleware('role:student')->group(function () {
-        Route::get('student/dashboard', fn() => response()->json(['message' => 'Welcome Student']));
-    });
-
-    // 🟡 Admin-only routes
-    Route::middleware('role:admin')->group(function () {
-        Route::get('admin/panel', fn() => response()->json(['message' => 'Welcome Admin']));
-    });
-
-    // 🟣 Mentor-only routes
-    Route::middleware('role:mentor')->group(function () {
-        Route::get('mentor/insights', fn() => response()->json(['message' => 'Welcome Mentor']));
-    });
-
-    // 🔁 Multi-role (e.g., admin OR mentor)
-    Route::middleware('role:admin,mentor')->group(function () {
-        Route::get('staff/area', fn() => response()->json(['message' => 'Admins & Mentors only']));
-    });
-});
-
-Route::get('/test', fn() => response()->json(['message' => 'API works']));
