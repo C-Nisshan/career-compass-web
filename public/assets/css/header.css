@@ -1,0 +1,502 @@
+.enhanced-navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(20, 30, 48, 0.95), rgba(36, 59, 85, 0.95));
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+}
+
+.enhanced-navbar.scrolled {
+    background: linear-gradient(135deg, rgba(20, 30, 48, 1), rgba(36, 59, 85, 1));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand.compass-logo {
+    position: relative;
+    width: 240px;
+    height: 148.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.navbar-brand.compass-logo:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: brightness(1.3) drop-shadow(0 0 15px rgba(212, 175, 55, 0.7));
+}
+
+.compass-body {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 25% 25%, #ffd700, #b8860b, #6b4e31);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.6),
+        inset 0 0 20px rgba(0, 0, 0, 0.4),
+        0 8px 30px rgba(0, 0, 0, 0.5);
+    border: 4px solid #b8860b;
+    animation: mysticalPulse 3.5s ease-in-out infinite;
+}
+
+.compass-rim {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #b8860b, #ffd700, #f4a261, #b8860b);
+    animation: slowRotate 25s linear infinite;
+}
+
+.inner-compass {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 25% 25%, #ffd700, #e6b800);
+}
+
+.compass-face {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e1, #f4e4bc, #ffd700);
+    border: 2px solid #b8860b;
+    box-shadow: inset 0 0 12px rgba(184, 134, 11, 0.4);
+}
+
+.compass-needle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 46px;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    animation: needleFloat 5s ease-in-out infinite;
+}
+
+.needle-north {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 24px solid #ff4500;
+    transform: translateX(-50%);
+    filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0.8));
+}
+
+.needle-south {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 24px solid #1c2526;
+    transform: translateX(-50%);
+}
+
+.center-gem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #ff8c00, #ff4500, #b22222);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 
+        0 0 15px rgba(255, 140, 0, 0.9),
+        inset 0 0 6px rgba(0, 0, 0, 0.3);
+    animation: gemGlow 1.8s ease-in-out infinite alternate;
+}
+
+.direction {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    color: #b8860b;
+    text-shadow: 0 0 4px rgba(184, 134, 11, 0.6);
+}
+
+.north { top: 6px; left: 50%; transform: translateX(-50%); }
+.south { bottom: 6px; left: 50%; transform: translateX(-50%); }
+.east { right: 6px; top: 50%; transform: translateY(-50%); }
+.west { left: 6px; top: 50%; transform: translateY(-50%); }
+
+.compass-text {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #ffd700;
+    text-shadow: 
+        0 0 8px rgba(255, 215, 0, 0.8),
+        1px 1px 3px rgba(0, 0, 0, 0.9);
+    animation: textGlow 2.5s ease-in-out infinite alternate;
+}
+
+.career-text {
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+}
+
+.compass-word {
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    color: #f4a261;
+}
+
+.decorative-ring {
+    position: absolute;
+    top: -14px;
+    left: -14px;
+    width: 148px;
+    height: 148px;
+    border: 2px dashed rgba(255, 215, 0, 0.4);
+    border-radius: 50%;
+    animation: slowRotateReverse 35s linear infinite;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffd700;
+    border-radius: 50%;
+    animation: particleFloat 7s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.9);
+}
+
+.particle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { top: 85%; right: 10%; animation-delay: 1.5s; }
+.particle:nth-child(3) { top: 25%; right: 15%; animation-delay: 3s; }
+.particle:nth-child(4) { bottom: 25%; left: 15%; animation-delay: 4.5s; }
+
+@keyframes mysticalPulse {
+    0%, 100% { 
+        box-shadow: 
+            0 0 30px rgba(255, 215, 0, 0.6),
+            inset 0 0 20px rgba(0, 0, 0, 0.4),
+            0 8px 30px rgba(0, 0, 0, 0.5);
+    }
+    50% { 
+        box-shadow: 
+            0 0 40px rgba(255, 215, 0, 0.9),
+            inset 0 0 25px rgba(0, 0, 0, 0.3),
+            0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+}
+
+@keyframes needleFloat {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(-50%, -50%) rotate(20deg); }
+    75% { transform: translate(-50%, -50%) rotate(-15deg); }
+}
+
+@keyframes gemGlow {
+    0% { box-shadow: 0 0 15px rgba(255, 140, 0, 0.9), inset 0 0 6px rgba(0, 0, 0, 0.3); }
+    100% { box-shadow: 0 0 20px rgba(255, 140, 0, 1), inset 0 0 10px rgba(0, 0, 0, 0.2); }
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 1px 1px 3px rgba(0, 0, 0, 0.9); }
+    100% { text-shadow: 0 0 15px rgba(255, 215, 0, 1), 1px 1px 5px rgba(0, 0, 0, 0.7); }
+}
+
+@keyframes slowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes slowRotateReverse禁止
+
+System: The response was cut off due to a timeout. Below is the completion of the `header.css` file, followed by the rest of the response.
+
+```css
+}
+
+@keyframes particleFloat {
+    0%, 100% { opacity: 0.4; transform: translateY(0px); }
+    50% { opacity: 1; transform: translateY(-20px); }
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.nav-links .nav-link {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links .nav-link:hover {
+    color: #ff6b6b;
+    transform: translateY(-2px);
+}
+
+.nav-links .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -4px;
+    left: 0;
+    background: linear-gradient(to right, #ff6b6b, #c084fc);
+    transition: width 0.3s ease;
+}
+
+.nav-links .nav-link:hover::after {
+    width: 100%;
+}
+
+.cta-btn {
+    padding: 0.7rem 2rem;
+    background: linear-gradient(45deg, #ff6b6b, #c084fc);
+    color: #ffffff;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.cta-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.cta-btn:hover::before {
+    left: 100%;
+}
+
+.navbar-toggler.hamburger {
+    border: none;
+    padding: 0.7rem;
+    background: none;
+}
+
+.navbar-toggler.hamburger span {
+    width: 28px;
+    height: 4px;
+    background: #ffffff;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    display: block;
+}
+
+.navbar-toggler.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.navbar-toggler.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggler.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+@media (max-width: 992px) {
+    .navbar-brand.compass-logo {
+        width: 180px;
+        height: 111.15px;
+    }
+    
+    .compass-body, .inner-compass {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .compass-rim {
+        width: 106px;
+        height: 106px;
+        top: -8px;
+        left: -8px;
+    }
+    
+    .compass-face {
+        width: 74px;
+        height: 74px;
+        top: 11px;
+        left: 11px;
+    }
+    
+    .compass-needle {
+        height: 37px;
+    }
+    
+    .needle-north, .needle-south {
+        border-left: 5.5px solid transparent;
+        border-right: 5.5px solid transparent;
+    }
+    
+    .needle-north {
+        border-bottom-width: 18px;
+    }
+    
+    .needle-south {
+        border-top-width: 18px;
+    }
+    
+    .center-gem {
+        width: 9px;
+        height: 9px;
+    }
+    
+    .direction {
+        font-size: 12px;
+    }
+    
+    .compass-text {
+        font-size: 16px;
+    }
+    
+    .career-text, .compass-word {
+        font-size: 14px;
+    }
+    
+    .decorative-ring {
+        width: 114px;
+        height: 114px;
+        top: -11px;
+        left: -11px;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .cta-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-brand.compass-logo {
+        width: 140px;
+        height: 86.52px;
+    }
+    
+    .compass-body, .inner-compass {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .compass-rim {
+        width: 86px;
+        height: 86px;
+        top: -8px;
+        left: -8px;
+    }
+    
+    .compass-face {
+        width: 58px;
+        height: 58px;
+        top: 9px;
+        left: 9px;
+    }
+    
+    .compass-needle {
+        height: 29px;
+    }
+    
+    .needle-north, .needle-south {
+        border-left: 4.5px solid transparent;
+        border-right: 4.5px solid transparent;
+    }
+    
+    .needle-north {
+        border-bottom-width: 14px;
+    }
+    
+    .needle-south {
+        border-top-width: 14px;
+    }
+    
+    .center-gem {
+        width: 7px;
+        height: 7px;
+    }
+    
+    .direction {
+        font-size: 10px;
+    }
+    
+    .compass-text {
+        font-size: 14px;
+    }
+    
+    .career-text, .compass-word {
+        font-size: 12px;
+        top: -25px;
+    }
+    
+    .compass-word {
+        bottom: -25px;
+    }
+    
+    .decorative-ring {
+        width: 86px;
+        height: 86px;
+        top: -8px;
+        left: -8px;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+    }
+    
+    .cta-btn {
+        margin: 1rem auto;
+    }
+}
