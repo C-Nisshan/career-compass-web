@@ -78,16 +78,6 @@
                         </form>
                     </li>
                 @endauth
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                        {{ strtoupper(app()->getLocale()) }}
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ url()->current() . '?lang=en' }}">English</a></li>
-                        <li><a class="dropdown-item" href="{{ url()->current() . '?lang=si' }}">Sinhala</a></li>
-                        <li><a class="dropdown-item" href="{{ url()->current() . '?lang=ta' }}">Tamil</a></li>
-                    </ul>
-                </li>
             </ul>
             <a href="#" class="cta-btn ms-3">{{ __('header.start_free') }}</a>
         </div>
