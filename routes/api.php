@@ -12,8 +12,8 @@ use App\Http\Controllers\Admin\AdminController;
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
 Route::post('/auth/verify-registration-otp', [RegisterController::class, 'verifyRegistrationOtp'])->middleware('throttle:100,1');
-Route::post('/auth/register/student', [RegisterController::class, 'registerStudent']);
-Route::post('/auth/register/mentor', [RegisterController::class, 'registerMentor']);
+Route::post('/register/student', [RegisterController::class, 'registerStudent'])->name('register.student');
+Route::post('/register/mentor', [RegisterController::class, 'registerMentor'])->name('register.mentor');
 Route::post('/auth/forgot-password', [PasswordResetController::class, 'sendOtp'])->name('api.forgot-password');
 Route::post('/auth/verify-otp', [PasswordResetController::class, 'verifyOtp'])->name('api.verify-otp');
 Route::post('/auth/reset-password', [PasswordResetController::class, 'resetPassword'])->name('api.reset-password');

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="register-container min-vh-100 d-flex align-items-center justify-content-center" style="background-color: #f0f2f5;">
+<div class="register-container min-vh-90 d-flex align-items-center justify-content-center" style="background-color: #f0f2f5;">
     <div class="card p-4 shadow-lg" style="width: 100%; max-width: 500px;">
         <h3 class="text-center mb-4">{{ __('auth.sign_up') }}</h3>
 

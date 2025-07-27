@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\{User, Profile, StudentProfile, MentorProfile};
-use App\Enums\{RoleEnum, VerifiedStatusEnum};
+use App\Models\User;
+use App\Notifications\CompleteProfileNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{DB, Hash, Mail};
-use Illuminate\Support\Str;
-use App\Mail\RegistrationStatus;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
+
     public function showRegistrationForm()
     {
         return view('auth.register');
@@ -19,104 +23,68 @@ class RegisterController extends Controller
 
     public function registerStudent(Request $request)
     {
-        $request->validate(rules: [
-            'first_name' => 'nullable|string|max:255',
-            'last_name' => 'nullable|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'nullable|string|max:15|regex:/^[\+]?[0-9]{10,12}$/',
-            'password' => 'required|string|min:8|confirmed',
-            'nic_number' => ['nullable', 'regex:/^(\d{9}[VvXx]|\d{12})$/'],
-            'date_of_birth' => 'nullable|date',
-            'school' => 'nullable|string|max:255',
-            'grade_level' => 'nullable|string|max:50',
-            'learning_style' => 'nullable|string',
-            'subjects_interested' => 'nullable|array',
-            'career_goals' => 'nullable|string',
-            'location' => 'nullable|string',
-        ]);
-
-        return $this->processRegistration($request, RoleEnum::STUDENT);
+        Log::debug('Register student request', $request->all());
+        return $this->register($request, 'student');
     }
 
     public function registerMentor(Request $request)
     {
-        $request->validate([
-            'first_name' => 'nullable|string|max:255',
-            'last_name' => 'nullable|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'nullable|string|max:15|regex:/^[\+]?[0-9]{10,12}$/',
-            'password' => 'required|string|min:8|confirmed',
-            'nic_number' => ['nullable', 'regex:/^(\d{9}[VvXx]|\d{12})$/'],
-            'profession_title' => 'nullable|string|max:255',
-            'industry' => 'nullable|string|max:255',
-            'experience_years' => 'nullable|integer|min:0|max:100',
-            'bio' => 'nullable|string',
-            'areas_of_expertise' => 'nullable|array',
-            'linkedin_url' => 'nullable|url',
-            'portfolio_url' => 'nullable|url',
-            'availability' => 'nullable|string',
-        ]);
-
-        return $this->processRegistration($request, RoleEnum::MENTOR);
+        Log::debug('Register mentor request', $request->all());
+        return $this->register($request, 'mentor');
     }
 
-    protected function processRegistration(Request $request, RoleEnum|string $role)
+    protected function register(Request $request, $role)
     {
-        return DB::transaction(function () use ($request, $role) {
+        Log::debug('Processing registration', ['role' => $role, 'input' => $request->all()]);
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+            'role' => 'required|in:student,mentor',
+        ]);
+
+        if ($validator->fails()) {
+            Log::warning('Validation failed', ['errors' => $validator->errors()]);
+            return response()->json([
+                'errors' => $validator->errors(),
+                'message' => 'Validation failed',
+            ], 422);
+        }
+
+        try {
             $user = User::create([
-                'uuid' => (string) Str::uuid(),
+                'uuid' => Uuid::uuid4()->toString(),
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => $role,
-                'status' => 'pending',
+                'status' => $role === 'mentor' ? 'pending' : 'approved',
                 'is_active' => true,
+                'token_version' => 1, // Initialize token version
             ]);
 
-            Profile::create([
-                'uuid' => (string) Str::uuid(),
-                'user_id' => $user->uuid,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'phone' => $request->phone,
-                'nic_number' => $request->nic_number,
-                'verified_status' => VerifiedStatusEnum::Pending,
-                'completion_step' => 'basic',
-            ]);
-
-            if ($role === RoleEnum::STUDENT) {
-                StudentProfile::create([
-                    'uuid' => (string) Str::uuid(),
-                    'user_id' => $user->uuid,
-                    'date_of_birth' => $request->date_of_birth,
-                    'school' => $request->school,
-                    'grade_level' => $request->grade_level,
-                    'learning_style' => $request->learning_style,
-                    'subjects_interested' => json_encode($request->subjects_interested),
-                    'career_goals' => $request->career_goals,
-                    'location' => $request->location,
-                ]);
+            Log::info('User registered, queuing notification', ['email' => $user->email]);
+            try {
+                $user->notify(new CompleteProfileNotification());
+            } catch (\Exception $e) {
+                Log::error('Failed to queue notification', ['error' => $e->getMessage()]);
             }
 
-            if ($role === RoleEnum::MENTOR) {
-                MentorProfile::create([
-                    'uuid' => (string) Str::uuid(),
-                    'user_id' => $user->uuid,
-                    'profession_title' => $request->profession_title,
-                    'industry' => $request->industry,
-                    'experience_years' => $request->experience_years,
-                    'bio' => $request->bio,
-                    'areas_of_expertise' => json_encode($request->areas_of_expertise),
-                    'linkedin_url' => $request->linkedin_url,
-                    'portfolio_url' => $request->portfolio_url,
-                    'availability' => $request->availability,
-                ]);
-            }
+            // Log in the user and generate JWT token
+            Auth::login($user);
+            $token = JWTAuth::customClaims(['token_version' => $user->token_version])->fromUser($user);
 
-            Mail::to($user->email)->queue(new RegistrationStatus($user, 'pending'));
-
+            Log::info('Registration successful', ['email' => $user->email, 'token' => substr($token, 0, 10) . '...']);
             return response()->json([
-                'message' => __('Registration submitted. Awaiting admin approval.')
-            ], 201);
-        });
+                'message' => 'Registration successful! Please complete your profile.',
+                'token' => $token,
+                'redirect' => route('profile.edit'),
+            ], 201)->withCookie(cookie('token', $token, 60, null, null, false, true)); // Set token cookie
+        } catch (\Exception $e) {
+            Log::error('Registration failed', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            return response()->json([
+                'message' => 'Registration failed. Please try again.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

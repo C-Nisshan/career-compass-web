@@ -6,11 +6,12 @@ use App\Enums\RoleEnum;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use UuidTrait, SoftDeletes;
+    use UuidTrait, SoftDeletes, Notifiable;
 
     protected $table = 'users';
 
