@@ -27,7 +27,7 @@ Route::get('/test-auth', function () {
 })->middleware('jwt.cookie');
 
 // Apply localization middleware to all routes
-Route::middleware(['setlocale', 'jwt.cookie'])->group(function () {
+Route::middleware(['jwt.cookie'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
         ->name('admin.dashboard');
 
