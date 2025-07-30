@@ -133,7 +133,7 @@
                     document.getElementById('reset-otp').value = formData.get('otp');
                     clearTimeout(otpTimeout);
                     bootstrap.Modal.getInstance(document.getElementById('otpVerificationModal')).hide();
-                    new bootstrap.Modal(document.getElementById('resetPasswordModal')).show();
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('resetPasswordModal')).show();
                 } else {
                     showToast(result.errors?.otp?.[0] || result.message || 'Failed to verify OTP.', 'danger');
                     clearFormInputs(form, ['_token', 'email']);

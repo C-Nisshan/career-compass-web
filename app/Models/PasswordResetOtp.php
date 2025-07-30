@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use App\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PasswordResetOtp extends Model
 {
-    use UuidTrait;
-
+    use HasFactory, UuidTrait;
     protected $fillable = ['email', 'otp', 'expires_at'];
-
-    protected $casts = [
-        'expires_at' => 'datetime',
-    ];
+    
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     public function isExpired()
     {
-        return $this->expires_at->isPast();
+        return $this->expires_at < now();
     }
 }
