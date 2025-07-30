@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\Mentor\MentorDashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 // Public routes (Blade views)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -36,5 +37,10 @@ Route::middleware(['jwt.cookie'])->group(function () {
     
     Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])
         ->name('mentor.dashboard');
+
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
+
+
 
