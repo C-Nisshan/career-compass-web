@@ -117,11 +117,11 @@
                 <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
                 <button type="button" media="screen" class="btn-close">Close</button>
             </div>
-            <div class="media-body">
+            <div class="modal-body">
                 <form id="reset-password-form">
                     @csrf
                     <input type="hidden" name="email" id="reset-email">
-                    <input type="hidden" name="otp" id="otp">
+                    <input type="hidden" name="otp" id="reset-otp">
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" id="password" class="form-control">
