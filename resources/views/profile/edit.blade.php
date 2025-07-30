@@ -3,13 +3,7 @@
 @section('content')
 <div class="container min-vh-90 d-flex align-items-center justify-content-center" style="background-color: #f0f2f5;">
     <div class="card p-4 shadow-lg" style="width: 100%; max-width: 600px;">
-        <h3 class="text-center mb-4">Complete Your {{ auth()->user()->role === 'mentor' ? 'Mentor' : 'Student' }} Profile</h3>
-
-        <div class="progress mb-3">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                50% Complete
-            </div>
-        </div>
+        <h3 class="text-center mb-4">Your {{ auth()->user()->role === 'mentor' ? 'Mentor' : 'Student' }} Profile</h3>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -33,27 +27,30 @@
             <!-- General Profile Fields -->
             <div class="mb-3">
                 <label for="first_name" class="form-label">First Name</label>
-                <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name', $profile->first_name ?? '') }}">
+                <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name', $user->first_name ?? '') }}">
             </div>
             <div class="mb-3">
                 <label for="last_name" class="form-label">Last Name</label>
-                <input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name', $profile->last_name ?? '') }}">
+                <input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name', $user->last_name ?? '') }}">
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone</label>
-                <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $profile->phone ?? '') }}">
+                <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $user->phone ?? '') }}">
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $profile->address ?? '') }}">
+                <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $user->address ?? '') }}">
             </div>
             <div class="mb-3">
                 <label for="nic_number" class="form-label">NIC Number</label>
-                <input type="text" name="nic_number" id="nic_number" class="form-control" value="{{ old('nic_number', $profile->nic_number ?? '') }}">
+                <input type="text" name="nic_number" id="nic_number" class="form-control" value="{{ old('nic_number', $user->nic_number ?? '') }}">
             </div>
             <div class="mb-3">
                 <label for="profile_picture" class="form-label">Profile Picture</label>
                 <input type="file" name="profile_picture" id="profile_picture" class="form-control">
+                @if ($user->profile_picture)
+                    <small class="form-text text-muted">Current: <a href="{{ Storage::url($user->profile_picture) }}" target="_blank">View Picture</a></small>
+                @endif
             </div>
 
             @if (auth()->user()->role === 'student')
@@ -153,8 +150,12 @@
             function updateProgress() {
                 let filled = 0;
                 inputs.forEach(input => {
-                    if (input.type === 'checkbox') {
+                    if (input.type === 'file') {
+                        if (input.files.length > 0) filled++;
+                    } else if (input.type === 'checkbox') {
                         if (input.checked) filled++;
+                    } else if (input.tagName === 'SELECT' && input.multiple) {
+                        if (input.selectedOptions.length > 0) filled++;
                     } else if (input.value.trim() !== '') {
                         filled++;
                     }

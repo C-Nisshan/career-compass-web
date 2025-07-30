@@ -1,104 +1,155 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="register-container min-vh-90 d-flex align-items-center justify-content-center" style="background-color: #f0f2f5;">
-    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 500px;">
-        <h3 class="text-center mb-4">{{ __('auth.sign_up') }}</h3>
+<div class="container min-vh-90 d-flex align-items-center justify-content-center" style="background-color: #f0f2f5;">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 600px;">
+        <h3 class="text-center mb-4">Sign Up</h3>
 
-        <!-- Progress Bar -->
-        <div class="progress mb-3">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                25% Complete
-            </div>
-        </div>
+        <div id="sign-up-messages"></div>
 
-        <!-- Error Message Box -->
-        <div id="sign-up-messages" class="alert alert-danger d-none text-center fw-bold mb-3"></div>
-
-        <form id="sign-up-form" action="javascript:void(0)">
+        <form id="sign-up-form" method="POST" action="#" enctype="multipart/form-data">
             @csrf
 
-            <!-- Role Selector -->
+            <!-- Role Selection -->
             <div class="mb-3">
-                <label for="role" class="form-label">{{ __('auth.role') }}</label>
+                <label for="role" class="form-label">Role</label>
                 <select name="role" id="role" class="form-select" required>
-                    <option value="">{{ __('auth.select_role') }}</option>
-                    <option value="student">{{ __('auth.student') }}</option>
-                    <option value="mentor">{{ __('auth.mentor') }}</option>
+                    <option value="">Select Role</option>
+                    <option value="student">Student</option>
+                    <option value="mentor">Mentor</option>
                 </select>
             </div>
 
-            <!-- Email -->
+            <!-- General User Fields -->
             <div class="mb-3">
-                <label for="email" class="form-label">{{ __('auth.email') }}</label>
+                <label for="email" class="form-label">Email</label>
                 <input type="email" name="email" id="email" class="form-control" required>
             </div>
-
-            <!-- Password -->
             <div class="mb-3">
-                <label for="password" class="form-label">{{ __('auth.password') }}</label>
+                <label for="password" class="form-label">Password</label>
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
-
-            <!-- Confirm Password -->
             <div class="mb-3">
-                <label for="password_confirmation" class="form-label">{{ __('auth.confirm_password') }}</label>
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" name="first_name" id="first_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" name="last_name" id="last_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" name="phone" id="phone" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" name="address" id="address" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="nic_number" class="form-label">NIC Number</label>
+                <input type="text" name="nic_number" id="nic_number" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="profile_picture" class="form-label">Profile Picture</label>
+                <input type="file" name="profile_picture" id="profile_picture" class="form-control">
+            </div>
 
-            <!-- Note (dynamic role hint) -->
-            <div class="mb-3 role-note d-none text-muted small"></div>
+            <!-- Student-Specific Fields -->
+            <div class="provider-fields student-fields d-none">
+                <div class="mb-3">
+                    <label for="date_of_birth" class="form-label">Date of Birth</label>
+                    <input type="date" name="date_of_birth" id="date_of_birth" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="school" class="form-label">School</label>
+                    <input type="text" name="school" id="school" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="grade_level" class="form-label">Grade Level</label>
+                    <input type="text" name="grade_level" id="grade_level" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="learning_style" class="form-label">Learning Style</label>
+                    <select name="learning_style" id="learning_style" class="form-select">
+                        <option value="">Select</option>
+                        <option value="visual">Visual</option>
+                        <option value="auditory">Auditory</option>
+                        <option value="kinesthetic">Kinesthetic</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="subjects_interested" class="form-label">Subjects Interested</label>
+                    <select name="subjects_interested[]" id="subjects_interested" class="form-select" multiple>
+                        <option value="Math">Math</option>
+                        <option value="Science">Science</option>
+                        <option value="Literature">Literature</option>
+                        <option value="Art">Art</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="career_goals" class="form-label">Career Goals</label>
+                    <textarea name="career_goals" id="career_goals" class="form-control" rows="5"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="location" id="location" class="form-control">
+                </div>
+            </div>
 
-            <!-- Submit -->
-            <button type="submit" class="btn btn-primary w-100" id="sign-up-button">
-                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                {{ __('auth.sign_up') }}
+            <!-- Mentor-Specific Fields -->
+            <div class="provider-fields mentor-fields d-none">
+                <div class="mb-3">
+                    <label for="profession_title" class="form-label">Profession Title</label>
+                    <input type="text" name="profession_title" id="profession_title" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="industry" class="form-label">Industry</label>
+                    <input type="text" name="industry" id="industry" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="experience_years" class="form-label">Years of Experience</label>
+                    <input type="number" name="experience_years" id="experience_years" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Bio</label>
+                    <textarea name="bio" id="bio" class="form-control" rows="5"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="areas_of_expertise" class="form-label">Areas of Expertise</label>
+                    <select name="areas_of_expertise[]" id="areas_of_expertise" class="form-select" multiple>
+                        <option value="AI">AI</option>
+                        <option value="HR">HR</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Medicine">Medicine</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="linkedin_url" class="form-label">LinkedIn URL</label>
+                    <input type="url" name="linkedin_url" id="linkedin_url" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="portfolio_url" class="form-label">Portfolio URL</label>
+                    <input type="url" name="portfolio_url" id="portfolio_url" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="availability" class="form-label">Availability</label>
+                    <input type="text" name="availability" id="availability" class="form-control">
+                </div>
+            </div>
+
+            <button type="submit" id="sign-up-button" class="btn btn-primary w-100">
+                Sign Up <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
             </button>
-
-            <!-- Or divider -->
-            <div class="text-center my-3 text-muted">— {{ __('auth.or') }} —</div>
-
-            <!-- Google Sign-up -->
-            <div class="text-center">
-                <a href="{{ route('auth.google') }}" class="btn btn-outline-secondary w-100">
-                    {{ __('auth.sign_up_google') }}
-                </a>
-            </div>
-
-            <!-- Login Link -->
-            <div class="text-center mt-3">
-                <a href="{{ route('login') }}">{{ __('auth.already_have_account') }}</a>
-            </div>
         </form>
     </div>
 </div>
 @endsection
 
 @push('scripts')
-    <script>
-        // Role-based note display
-        document.addEventListener('DOMContentLoaded', () => {
-            const roleSelect = document.getElementById('role');
-            const noteBox = document.querySelector('.role-note');
-
-            const notes = {
-                student: `{{ __('auth.student_note') }}`,
-                mentor: `{{ __('auth.mentor_note') }}`
-            };
-
-            roleSelect.addEventListener('change', function () {
-                const selected = this.value;
-                if (notes[selected]) {
-                    noteBox.classList.remove('d-none');
-                    noteBox.textContent = notes[selected];
-                } else {
-                    noteBox.classList.add('d-none');
-                    noteBox.textContent = '';
-                }
-            });
-        });
-    </script>
-
     <script src="{{ asset('config.js') }}"></script>
     <script src="{{ asset('assets/js/auth/register.js') }}"></script>
 @endpush

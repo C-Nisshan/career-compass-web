@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use App\Enums\RoleEnum;
 
 class CheckRoleMiddleware
 {
@@ -17,14 +18,21 @@ class CheckRoleMiddleware
             'path' => $request->path(),
             'user_id' => $user?->id,
             'user_email' => $user?->email,
-            'user_role' => $user?->role?->value,
+            'user_role' => $user?->role->value ?? 'none',
             'required_roles' => $roles,
             'auth_check' => auth('api')->check() ? 'authenticated' : 'unauthenticated',
         ]);
 
-        if (!$user || !in_array($user->role->value ?? '', $roles)) {
+        if (!$user) {
+            Log::warning('CheckRoleMiddleware: No authenticated user', [
+                'required_roles' => $roles,
+            ]);
+            throw new AccessDeniedHttpException('Unauthorized access');
+        }
+
+        if (!in_array($user->role->value, $roles)) {
             Log::warning('CheckRoleMiddleware: Access denied', [
-                'user_role' => $user?->role?->value ?? 'none',
+                'user_role' => $user->role->value,
                 'required_roles' => $roles,
             ]);
             throw new AccessDeniedHttpException('Unauthorized access');

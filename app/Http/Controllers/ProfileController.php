@@ -6,21 +6,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use App\Models\StudentProfile;
+use App\Models\MentorProfile;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
     public function edit()
     {
         $user = Auth::user();
-        $profile = $user->profile;
         $roleProfile = $user->role === 'mentor' ? $user->mentorProfile : $user->studentProfile;
-        
-        return view('profile.edit', compact('user', 'profile', 'roleProfile'));
+
+        return view('profile.edit', compact('user', 'roleProfile'));
     }
 
     public function update(Request $request)
     {
         $user = Auth::user();
+
+        // Define validation rules
         $generalRules = [
             'first_name' => 'nullable|string|max:255',
             'last_name' => 'nullable|string|max:255',
@@ -34,7 +40,7 @@ class ProfileController extends Controller
             'date_of_birth' => 'nullable|date',
             'school' => 'nullable|string|max:255',
             'grade_level' => 'nullable|string|max:50',
-            'learning_style' => 'nullable|string|in:visual,auditory,kinesthetic',
+            'learning_style' => 'nullable|in:visual,auditory,kinesthetic',
             'subjects_interested' => 'nullable|array',
             'subjects_interested.*' => 'string|max:100',
             'career_goals' => 'nullable|string|max:1000',
@@ -68,27 +74,27 @@ class ProfileController extends Controller
         }
 
         try {
-            // Update general profile
-            $profileData = [
-                'user_id' => $user->uuid,
+            DB::beginTransaction();
+
+            // Update user general fields
+            $userData = [
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
                 'phone' => $request->input('phone'),
                 'address' => $request->input('address'),
                 'nic_number' => $request->input('nic_number'),
-                'verified_status' => $user->role === 'mentor' ? 'pending' : 'approved',
-                'completion_step' => 'completed',
             ];
 
             if ($request->hasFile('profile_picture')) {
+                // Delete old profile picture if exists
+                if ($user->profile_picture) {
+                    Storage::disk('public')->delete($user->profile_picture);
+                }
                 $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-                $profileData['profile_picture_path'] = $path;
+                $userData['profile_picture'] = $path;
             }
 
-            $user->profile()->updateOrCreate(
-                ['user_id' => $user->uuid],
-                $profileData
-            );
+            $user->update($userData);
 
             // Update role-specific profile
             if ($user->role === 'student') {
@@ -99,7 +105,7 @@ class ProfileController extends Controller
                         'school' => $request->input('school'),
                         'grade_level' => $request->input('grade_level'),
                         'learning_style' => $request->input('learning_style'),
-                        'subjects_interested' => json_encode($request->input('subjects_interested', [])),
+                        'subjects_interested' => $request->input('subjects_interested', []),
                         'career_goals' => $request->input('career_goals'),
                         'location' => $request->input('location'),
                     ]
@@ -112,7 +118,7 @@ class ProfileController extends Controller
                         'industry' => $request->input('industry'),
                         'experience_years' => $request->input('experience_years'),
                         'bio' => $request->input('bio'),
-                        'areas_of_expertise' => json_encode($request->input('areas_of_expertise', [])),
+                        'areas_of_expertise' => $request->input('areas_of_expertise', []),
                         'linkedin_url' => $request->input('linkedin_url'),
                         'portfolio_url' => $request->input('portfolio_url'),
                         'availability' => $request->input('availability'),
@@ -120,9 +126,12 @@ class ProfileController extends Controller
                 );
             }
 
+            DB::commit();
+
             Log::info('Profile updated successfully', ['user_id' => $user->uuid]);
             return redirect()->route('dashboard')->with('success', 'Profile updated successfully!');
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Profile update failed', ['error' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Failed to update profile. Please try again.');
         }
