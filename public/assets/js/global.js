@@ -85,3 +85,34 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.querySelector('.sidebar');
+    const toggleButton = document.querySelector('.sidebar-toggle');
+    
+    if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.querySelector('.sidebar');
+    const toggleButton = document.querySelector('.sidebar-toggle');
+    const body = document.body;
+    
+    // Add 'dashboard' class to body for dashboard routes
+    const dashboardRoutes = ['admin.', 'student.', 'mentor.'];
+    const currentPath = window.location.pathname;
+    if (dashboardRoutes.some(route => currentPath.includes(`/${route}`))) {
+        body.classList.add('dashboard');
+    }
+
+    // Sidebar toggle for mobile
+    if (toggleButton && sidebar) {
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    }
+});

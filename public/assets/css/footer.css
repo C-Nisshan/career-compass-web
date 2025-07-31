@@ -2,6 +2,8 @@ footer {
     background: #1f2937;
     color: white;
     padding: 4rem 2rem 1.5rem;
+    position: relative;
+    z-index: 1000; /* Above content and sidebar */
 }
 
 .footer-content {
@@ -53,7 +55,7 @@ footer {
     cursor: pointer;
     box-shadow: 0 8px 20px var(--glow);
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: 1100; /* Above all elements */
 }
 
 .chatbot:hover {

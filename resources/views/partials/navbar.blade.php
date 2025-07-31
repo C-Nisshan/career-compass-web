@@ -43,6 +43,9 @@
             <span></span>
             <span></span>
         </button>
+        <button class="sidebar-toggle d-md-none" aria-label="Toggle Sidebar">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav nav-links ms-auto">
                 <li class="nav-item"><a class="nav-link" href="#features">{{ __('header.features') }}</a></li>
