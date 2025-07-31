@@ -18,7 +18,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('assets/css/about.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact.css') }}">
+
     @stack('styles')
 </head>
 <body>

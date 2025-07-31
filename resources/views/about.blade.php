@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="animated-bg"></div>
-<div class="particles" id="particles"></div>
+<div class="about-animated-bg"></div>
+<div class="about-particles" id="about-particles"></div>
 
 <section class="about">
     <div class="about-container">
@@ -12,19 +12,19 @@
     </div>
 </section>
 
-<section class="testimonials" id="testimonials">
-    <div class="container">
-        <h2 class="section-title">What Our Users Say</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-card fade-in">
+<section class="about-testimonials" id="about-testimonials">
+    <div class="about-container">
+        <h2 class="about-section-title">What Our Users Say</h2>
+        <div class="about-testimonial-grid">
+            <div class="about-testimonial-card about-fade-in">
                 <p>CareerCompass transformed my career path! I discovered my passion for UX design, and the roadmap was a lifesaver!</p>
                 <h4>Sara, 22</h4>
             </div>
-            <div class="testimonial-card fade-in">
+            <div class="about-testimonial-card about-fade-in">
                 <p>The AI recommendations were incredibly accurate. I’m now thriving in data science, thanks to CareerCompass!</p>
                 <h4>Arjun, 19</h4>
             </div>
-            <div class="testimonial-card fade-in">
+            <div class="about-testimonial-card about-fade-in">
                 <p>The community is fantastic! I connected with a mentor who helped me land my first job!</p>
                 <h4>Emma, 25</h4>
             </div>
@@ -32,7 +32,4 @@
     </div>
 </section>
 
-<div class="chatbot">
-    <img src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png" alt="Chatbot" aria-label="Open CareerCompass Chatbot">
-</div>
 @endsection

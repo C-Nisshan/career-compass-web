@@ -125,7 +125,4 @@
     </div>
 </section>
 
-<div class="chatbot">
-    <img src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png" alt="Chatbot" aria-label="Open CareerCompass Chatbot">
-</div>
 @endsection
