@@ -35,7 +35,6 @@ body {
 
 .content-container {
     flex: 1;
-    padding: 2rem;
     background: #ffffff;
     z-index: 0;
     width: calc(100% - 260px); /* Adjust for sidebar width */

@@ -48,41 +48,49 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav nav-links ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#features">{{ __('header.features') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#how-it-works">{{ __('header.how_it_works') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#testimonials">{{ __('header.testimonials') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#community">{{ __('header.community') }}</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#features">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#how-it-works">How It Works</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#community">Community</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" data-bs-toggle="dropdown">
+                        Tools
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
+                        <li><a class="dropdown-item" href="{{ route('home') }}">Roadmap</a></li>
+                        <li><a class="dropdown-item" href="{{ route('about') }}">Quizzes</a></li>
+                        <li><a class="dropdown-item" href="{{ route('contact') }}">Reports</a></li>
+                    </ul>
+                </li>
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login', ['lang' => app()->getLocale()]) }}">{{ __('header.login') }}</a>
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register', ['lang' => app()->getLocale()]) }}">{{ __('header.register') }}</a>
-                    </li>
-                @endguest
+                @endauth
                 @auth
-                    @if(auth()->user()->role->value === \App\Enums\RoleEnum::ADMIN->value)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.dashboard', ['lang' => app()->getLocale()]) }}">{{ __('header.admin_dashboard') }}</a>
-                        </li>
-                    @elseif(auth()->user()->role->value === \App\Enums\RoleEnum::STUDENT->value)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('student.dashboard', ['lang' => app()->getLocale()]) }}">{{ __('header.booker_dashboard') }}</a>
-                        </li>
-                    @elseif(auth()->user()->role->value === \App\Enums\RoleEnum::MENTOR->value)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('mentor.dashboard', ['lang' => app()->getLocale()]) }}">{{ __('header.provider_dashboard') }}</a>
-                        </li>
-                    @endif
                     <li class="nav-item">
                         <form id="logout-form" action="{{ route('api.logout') }}" method="POST" style="display: inline;">
                             @csrf
-                            <button type="submit" class="nav-link btn btn-link" id="logoutButton">{{ __('header.logout') }}</button>
+                            <button type="submit" class="nav-link btn btn-link" id="logoutButton">Logout</button>
                         </form>
                     </li>
                 @endauth
             </ul>
-            <a href="#" class="cta-btn ms-3">{{ __('header.start_free') }}</a>
+            <a href="{{ route('register') }}" class="cta-btn ms-3">Start Free</a>
         </div>
     </div>
 </nav>

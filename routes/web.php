@@ -6,6 +6,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\CommunityController;
 
 // Admin
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -112,3 +116,11 @@ Route::get('/test-auth', function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    Route::get('/about', [AboutController::class, 'index'])->name('about');
+    Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('/community/forum', [CommunityController::class, 'forum'])->name('community.forum');
+    Route::get('/community/forum/create', [CommunityController::class, 'create'])->name('forum.create');
+    Route::post('/community/forum/store', [CommunityController::class, 'store'])->name('forum.store');
