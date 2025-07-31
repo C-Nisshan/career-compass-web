@@ -4,8 +4,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\PasswordResetController;
-use App\Http\Controllers\Booker\RoomController as BookerRoomController;
-use App\Http\Controllers\Provider\RoomController as ProviderRoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 

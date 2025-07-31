@@ -1,23 +1,52 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Student\StudentDashboardController;
-use App\Http\Controllers\Mentor\MentorDashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\ProfileController;
 
-// Public routes (Blade views)
+// Admin
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\MentorApprovalController;
+use App\Http\Controllers\Admin\SuccessStoryController as AdminSuccessStoryController;
+use App\Http\Controllers\Admin\QuizQuestionController;
+use App\Http\Controllers\Admin\ForumModerationController;
+use App\Http\Controllers\Admin\AnalyticsController as AdminAnalyticsController;
+use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
+
+// Student
+use App\Http\Controllers\Student\StudentDashboardController;
+use App\Http\Controllers\Student\ProfileController as StudentProfileController;
+use App\Http\Controllers\Student\CareerRecommendationController;
+use App\Http\Controllers\Student\SkillQuizController;
+use App\Http\Controllers\Student\SuccessStoryController as StudentSuccessStoryController;
+use App\Http\Controllers\Student\CommunityForumController as StudentCommunityForumController;
+use App\Http\Controllers\Student\ReportController;
+use App\Http\Controllers\Student\SettingsController as StudentSettingsController;
+
+// Mentor
+use App\Http\Controllers\Mentor\MentorDashboardController;
+use App\Http\Controllers\Mentor\ProfileController as MentorProfileController;
+use App\Http\Controllers\Mentor\CommunityForumController as MentorCommunityForumController;
+use App\Http\Controllers\Mentor\AnalyticsController as MentorAnalyticsController;
+use App\Http\Controllers\Mentor\SettingsController as MentorSettingsController;
+
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+
 Route::get('/auth/google', [RegisterController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [RegisterController::class, 'handleGoogleCallback']);
 
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-
-// Debug route for testing authentication
+// Debug route
 Route::get('/test-auth', function () {
     return response()->json([
         'user' => auth('api')->user(),
@@ -27,20 +56,59 @@ Route::get('/test-auth', function () {
     ]);
 })->middleware('jwt.cookie');
 
-// Apply localization middleware to all routes
-Route::middleware(['jwt.cookie'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
-        ->name('admin.dashboard');
 
-    Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])
-        ->name('student.dashboard');
     
-    Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])
-        ->name('mentor.dashboard');
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware(['jwt.cookie', 'role:admin'])->group(function () {
+        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users');
+        Route::get('/admin/mentor-approvals', [MentorApprovalController::class, 'index'])->name('admin.mentor.approvals');
+        Route::get('/admin/success-stories', [AdminSuccessStoryController::class, 'index'])->name('admin.success.stories');
+        Route::get('/admin/quiz-questions', [QuizQuestionController::class, 'index'])->name('admin.quiz.questions');
+        Route::get('/admin/forum-moderation', [ForumModerationController::class, 'index'])->name('admin.forum.moderation');
+        Route::get('/admin/analytics', [AdminAnalyticsController::class, 'index'])->name('admin.analytics');
+        Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
+    });
 
+    /*
+    |--------------------------------------------------------------------------
+    | Student Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware(['jwt.cookie', 'role:student'])->group( function () {
+        Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+        Route::get('/student/profile', [StudentProfileController::class, 'index'])->name('student.profile');
+        Route::get('/student/career-recommendations', [CareerRecommendationController::class, 'index'])->name('student.career.recommendations');
+        Route::get('/student/skill-quizzes', [SkillQuizController::class, 'index'])->name('student.skill.quizzes');
+        Route::get('/student/success-stories', [StudentSuccessStoryController::class, 'index'])->name('student.success.stories');
+        Route::get('/student/community-forum', [StudentCommunityForumController::class, 'index'])->name('student.community.forum');
+        Route::get('/student/reports', [ReportController::class, 'index'])->name('student.reports');
+        Route::get('/student/settings', [StudentSettingsController::class, 'index'])->name('student.settings');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mentor Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware(['jwt.cookie', 'role:mentor'])->group( function () {
+        Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])->name('mentor.dashboard');
+        Route::get('/mentor/profile', [MentorProfileController::class, 'index'])->name('mentor.profile');
+        Route::get('/mentor/community-forum', [MentorCommunityForumController::class, 'index'])->name('mentor.community.forum');
+        Route::get('/mentor/analytics', [MentorAnalyticsController::class, 'index'])->name('mentor.analytics');
+        Route::get('/mentor/settings', [MentorSettingsController::class, 'index'])->name('mentor.settings');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Common Routes for Authenticated Users
+    |--------------------------------------------------------------------------
+    */
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-});
 
-
-
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');

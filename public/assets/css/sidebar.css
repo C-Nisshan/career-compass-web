@@ -1,0 +1,169 @@
+/* Sidebar Styling */
+.sidebar {
+    background: #1f2937;
+    color: #ffffff;
+    width: 260px;
+    height: calc(100vh - 72px); /* Adjust for navbar height */
+    position: sticky;
+    top: 72px; /* Match navbar height */
+    overflow-y: auto;
+    z-index: 900; /* Below navbar, above content */
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar Logo and Branding */
+.compass-logo {
+    width: 48px;
+    height: 48px;
+    position: relative;
+}
+
+.compass-rim {
+    background: #4b5563;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.inner-compass {
+    background: #374151;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+.center-gem {
+    width: 16px;
+    height: 16px;
+    background: #3b82f6;
+    border-radius: 50%;
+}
+
+.sidebar .flex.items-center {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    transition: background 0.2s ease;
+}
+
+.sidebar .flex.items-center:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* Sidebar Navigation */
+.sidebar nav {
+    padding: 0 1rem;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #d1d5db;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.sidebar nav a:hover {
+    background: var(--accent);
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+.sidebar nav a.active, .sidebar nav a.bg-blue-600 {
+    background: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Section Headers */
+.sidebar .font-semibold.text-gray-400 {
+    color: #9ca3af;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+}
+
+/* Logout Button */
+.sidebar #logout-form button {
+    color: #f3f4f6;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.sidebar #logout-form button:hover {
+    background: #b91c1c;
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: 100vh; /* Full height on mobile */
+        position: fixed;
+        top: 0;
+        transform: translateX(-100%);
+        z-index: 1000; /* Above content, below toggle */
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-wrapper {
+        flex-direction: column;
+    }
+
+    .content-container {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    .sidebar-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1100;
+        background: var(--primary);
+        color: #ffffff;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+}
+
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #6b7280;
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
