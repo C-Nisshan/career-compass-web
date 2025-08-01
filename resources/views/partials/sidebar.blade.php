@@ -22,7 +22,7 @@
 
                 @elseif(auth()->user()->role->value === \App\Enums\RoleEnum::STUDENT->value)
                     <!-- Student Sidebar -->
-                    <a href="{{ route('student.dashboard') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.dashboard') ? 'bg-blue-600' : '' }}" aria-label="Student Dashboard">Student Dashboard</a>
+                    <a href="{{ route('student.dashboard') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.dashboard') ? 'bg-blue-600' : '' }}" aria-label="Student Dashboard">Dashboard</a>
                     
                     <a href="{{ route('student.profile') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.profile') ? 'bg-blue-600' : '' }}" aria-label="Profile">Profile</a>
                     <a href="{{ route('student.career.recommendations') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.career.recommendations') ? 'bg-blue-600' : '' }}" aria-label="Career Recommendations">Career Recommendations</a>
@@ -40,7 +40,7 @@
                         <a href="{{ route('mentor.settings') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.settings') ? 'bg-blue-600' : '' }}" aria-label="Settings">Settings</a>
                     @else
                         <!-- Active Mentor Sidebar -->
-                        <a href="{{ route('mentor.dashboard') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.dashboard') ? 'bg-blue-600' : '' }}" aria-label="Mentor Dashboard">Mentor Dashboard</a>
+                        <a href="{{ route('mentor.dashboard') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.dashboard') ? 'bg-blue-600' : '' }}" aria-label="Mentor Dashboard">Dashboard</a>
                         <a href="{{ route('mentor.profile') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.profile') ? 'bg-blue-600' : '' }}" aria-label="Profile">Profile</a>
                         <a href="{{ route('mentor.community.forum') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.community.forum') ? 'bg-blue-600' : '' }}" aria-label="Community Forum">Community Forum</a>
                         <a href="{{ route('mentor.analytics') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.analytics') ? 'bg-blue-600' : '' }}" aria-label="Mentorship Analytics">Mentorship Analytics</a>

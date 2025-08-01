@@ -1,75 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="login-container">
-    <div class="card p-4 shadow-lg mx-auto" style="width: 400px;">
-        <h3 class="text-center">Login</h3>
-        <form id="login-form" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100" id="login-button">
-                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                Login
-            </button>
-            <div class="text-center mt-3">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a> | 
-                <a href="{{ route('register') }}">Sign Up</a>
-            </div>
-        </form>
+<div class="login-main-wrapper">
+    <div class="login-animated-bg"></div>
+    <div class="login-particles" id="login-particles">
+        <div class="login-particle"></div>
+        <div class="login-particle"></div>
+        <div class="login-particle"></div>
+        <div class="login-particle"></div>
     </div>
+
+    <div class="login-container mt-4 mb-4">
+        <div class="login-card">
+            <h3>Login</h3>
+            <form id="login-form" method="POST" class="login-form">
+                @csrf
+                <div class="mb-3">
+                    <label for="login-email" class="form-label">Email</label>
+                    <input type="email" name="email" id="login-email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="login-password" class="form-label">Password</label>
+                    <input type="password" name="password" id="login-password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" id="login-button">
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    Login
+                </button>
+                <div class="text-center mt-3">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#login-forgot-password-modal">Forgot Password?</a>
+                    <a href="{{ route('register') }}">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="login-toast-container" class="login-toast-container"></div>
 </div>
 @endsection
 
-@push('styles')
-<style>
-    .toast-container {
-        z-index: 1055;
-    }
-    .toast {
-        min-width: 300px;
-        max-width: 90vw;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    .toast-progress-bar {
-        height: 4px;
-        background-color: rgba(255, 255, 255, 0.7);
-        width: 100%;
-        animation: toast-progress 5s linear forwards;
-    }
-    @keyframes toast-progress {
-        from { width: 100%; }
-        to { width: 0; }
-    }
-</style>
-@endpush
-
 @push('modals')
-<!-- Toast Container -->
-<div id="toast-container" class="toast-container position-fixed top-50 start-50 translate-middle"></div>
-
 <!-- Forgot Password Modal -->
-<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+<div class="modal fade login-modal" id="login-forgot-password-modal" tabindex="-1" aria-labelledby="login-forgot-password-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                <h5 class="modal-title" id="login-forgot-password-modal-label">Forgot Password</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="forgot-password-form">
+                <form id="login-forgot-password-form" class="login-forgot-password-form">
                     @csrf
                     <div class="mb-3">
-                        <label for="forgot-email" class="form-label">Email</label>
-                        <input type="email" name="email" id="forgot-email" class="form-control" required>
+                        <label for="login-forgot-email" class="form-label">Email</label>
+                        <input type="email" name="email" id="login-forgot-email" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100" id="forgot-password-button">
+                    <button type="submit" class="btn btn-primary w-100" id="login-forgot-password-button">
                         <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                         Send OTP
                     </button>
@@ -80,26 +67,26 @@
 </div>
 
 <!-- OTP Verification Modal -->
-<div class="modal fade" id="otpVerificationModal" tabindex="-1" aria-labelledby="otpVerificationModalLabel" aria-hidden="true">
+<div class="modal fade login-modal" id="login-otp-verification-modal" tabindex="-1" aria-labelledby="login-otp-verification-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="otpVerificationModalLabel">Verify OTP</h5>
+                <h5 class="modal-title" id="login-otp-verification-modal-label">Verify OTP</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="otp-form">
+                <form id="login-otp-form" class="login-otp-form">
                     @csrf
-                    <input type="hidden" name="email" id="otp-email">
+                    <input type="hidden" name="email" id="login-otp-email">
                     <div class="mb-3">
-                        <label for="otp" class="form-label">OTP</label>
-                        <input type="text" name="otp" id="otp" class="form-control" required maxlength="6">
+                        <label for="login-otp" class="form-label">OTP</label>
+                        <input type="text" name="otp" id="login-otp" class="form-control" required maxlength="6">
                     </div>
                     <div class="mb-3 text-center">
-                        <p id="otp-timer" class="text-muted">Time remaining: <span id="timer-display">2:00</span></p>
-                        <button type="button" class="btn btn-link d-none" id="resend-otp-button">Resend OTP</button>
+                        <p id="login-otp-timer" class="text-muted">Time remaining: <span id="login-timer-display">2:00</span></p>
+                        <button type="button" class="btn btn-link d-none" id="login-resend-otp-button">Resend OTP</button>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100" id="otp-button">
+                    <button type="submit" class="btn btn-primary w-100" id="login-otp-button">
                         <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                         Verify OTP
                     </button>
@@ -110,28 +97,28 @@
 </div>
 
 <!-- Reset Password Modal -->
-<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+<div class="modal fade login-modal" id="login-reset-password-modal" tabindex="-1" aria-labelledby="login-reset-password-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
-                <button type="button" media="screen" class="btn-close">Close</button>
+                <h5 class="modal-title" id="login-reset-password-modal-label">Reset Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="reset-password-form">
+                <form id="login-reset-password-form" class="login-reset-password-form">
                     @csrf
-                    <input type="hidden" name="email" id="reset-email">
-                    <input type="hidden" name="otp" id="reset-otp">
+                    <input type="hidden" name="email" id="login-reset-email">
+                    <input type="hidden" name="otp" id="login-reset-otp">
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" id="password" class="form-control">
+                        <label for="login-password" class="form-label">Password</label>
+                        <input type="password" name="password" id="login-password" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="password_confirmation" class="form-label">Confirm Password</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                        <label for="login-password-confirmation" class="form-label">Confirm Password</label>
+                        <input type="password" name="password_confirmation" id="login-password-confirmation" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-primary w-100" id="reset-password-button">
-                        <span class="spinner-border spinner-border d-none" role="status"></span>
+                    <button type="submit" class="btn btn-primary w-100" id="login-reset-password-button">
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
                         Reset Password
                     </button>
                 </form>
@@ -143,4 +130,16 @@
 
 @push('scripts')
     <script src="{{ asset('assets/js/auth/login.js') }}"></script>
-@endpush('')
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('login-particles', {
+            particles: {
+                number: { value: 4 },
+                color: { value: 'rgba(168, 85, 247, 0.6)' },
+                shape: { type: 'circle' },
+                size: { value: 6 },
+                move: { enable: true, speed: 2, direction: 'top', random: false, straight: true }
+            }
+        });
+    </script>
+@endpush
