@@ -5,16 +5,18 @@
     const roleSelect = document.getElementById('role');
     const studentFields = document.querySelectorAll('.provider-fields.student-fields');
     const mentorFields = document.querySelectorAll('.provider-fields.mentor-fields');
+    const toastContainer = document.getElementById('register-toast-container');
 
     // Define valid roles (matching RoleEnum values)
     const validRoles = ['student', 'mentor'];
 
-    if (!signUpForm || !signUpMessages || !signUpButton || !roleSelect) {
+    if (!signUpForm || !signUpMessages || !signUpButton || !roleSelect || !toastContainer) {
         console.error('Required elements not found:', {
             signUpForm: !!signUpForm,
             signUpMessages: !!signUpMessages,
             signUpButton: !!signUpButton,
-            roleSelect: !!roleSelect
+            roleSelect: !!roleSelect,
+            toastContainer: !!toastContainer
         });
         return;
     }
@@ -88,6 +90,7 @@
             if (response.status === 201) {
                 signUpMessages.classList.add('text-success');
                 signUpMessages.innerText = result.message || 'Registration successful!';
+                showToast(result.message || 'Registration successful!', 'success');
                 if (result.redirect) {
                     setTimeout(() => {
                         window.location.href = result.redirect;
@@ -149,10 +152,21 @@
 
     function showToast(message, type) {
         const toast = document.createElement('div');
-        toast.className = `alert alert-${type} position-fixed top-0 end-0 m-3`;
-        toast.style.zIndex = 1000;
-        toast.innerText = message;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+        toast.className = `register-toast alert alert-${type}`;
+        toast.style.zIndex = 1055;
+        toast.innerHTML = `
+            <div class="toast-body">${message}</div>
+            <div class="register-toast-progress-bar"></div>
+        `;
+        toastContainer.appendChild(toast);
+
+        // Trigger reflow to enable animation
+        toast.offsetHeight;
+
+        // Remove toast after 5 seconds
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
     }
 })();

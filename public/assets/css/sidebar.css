@@ -12,34 +12,6 @@
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Sidebar Logo and Branding */
-.compass-logo {
-    width: 48px;
-    height: 48px;
-    position: relative;
-}
-
-.compass-rim {
-    background: #4b5563;
-    padding: 4px;
-    border-radius: 50%;
-}
-
-.inner-compass {
-    background: #374151;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content:center;
-}
-
-.center-gem {
-    width: 16px;
-    height: 16px;
-    background: #3b82f6;
-    border-radius: 50%;
-}
-
 .sidebar .flex.items-center {
     display: flex;
     align-items: center;
@@ -59,26 +31,51 @@
 }
 
 .sidebar nav a {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 0.75rem 1rem;
-    color: #d1d5db;
+    color: #e5e7eb;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 8px;
     transition: all 0.3s ease;
     font-size: 0.95rem;
     font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    gap: 0.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.sidebar nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    border-color: #ffffff;
+    transition: left 0.5s ease;
+}
+
+.sidebar nav a:hover::before {
+    left: 100%;
 }
 
 .sidebar nav a:hover {
-    background: var(--accent);
     color: #ffffff;
-    transform: translateX(5px);
+    background: rgba(168, 85, 247, 0.1);
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
+    border: 2px solid rgba(168, 85, 247, 0.8);
+    margin-top: 0;
 }
 
 .sidebar nav a.active, .sidebar nav a.bg-blue-600 {
-    background: var(--primary);
+    border-color: #ffffff;
     color: #ffffff;
     font-weight: 600;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
 }
 
 /* Section Headers */
@@ -123,7 +120,8 @@
     }
 
     .sidebar.active {
-        transform: translateX(0);
+        backdrop-filter: blur(5px);
+        background: rgba(31, 41, 55, 0.95);
     }
 
     .main-wrapper {

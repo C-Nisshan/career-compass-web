@@ -263,7 +263,8 @@
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.nav-links .nav-link:hover {
+.nav-links .nav-link:hover,
+.nav-links .nav-link.active {
     color: #ff6b6b;
     transform: translateY(-2px);
 }
@@ -279,7 +280,8 @@
     transition: width 0.3s ease;
 }
 
-.nav-links .nav-link:hover::after {
+.nav-links .nav-link:hover::after,
+.nav-links .nav-link.active::after {
     width: 100%;
 }
 

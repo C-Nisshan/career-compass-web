@@ -1,0 +1,214 @@
+.forum-main-wrapper {
+    display: flex;
+    flex: 1;
+    min-height: calc(100vh - 72px - 160px); /* Adjust for navbar and footer */
+}
+
+.forum-content-container {
+    flex: 1;
+    background: #ffffff;
+    width: 100%; /* Full width for non-dashboard pages */
+    position: relative;
+    z-index: 0;
+}
+
+.forum-animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, #1f2937, #374151); /* Dark gradient */
+    background-size: 600%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.forum-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.forum-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(168, 85, 247, 0.6); /* Purple particles */
+    border-radius: 50%;
+    animation: float 12s infinite ease-in-out;
+}
+
+.forum-particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+.forum-particle:nth-child(2) { top: 20%; right: 10%; animation-delay: 3s; }
+.forum-particle:nth-child(3) { bottom: 15%; left: 20%; animation-delay: 6s; }
+.forum-particle:nth-child(4) { bottom: 10%; right: 15%; animation-delay: 9s; }
+
+@keyframes float {
+    0% { transform: translateY(100vh) scale(0.4); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+}
+
+.forum {
+    padding: 6rem 2rem;
+    background: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.forum-container {
+    max-width: 1500px; /* Match global.css container */
+    margin: 0 auto;
+    text-align: center;
+    color: #1f2937;
+}
+
+.forum p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.forum-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1500px; /* Match global.css container */
+    margin: 0 auto 2rem;
+}
+
+.forum-post-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.forum-post-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+    transition: transform 0.5s ease;
+    z-index: 0;
+}
+
+.forum-post-card:hover::before {
+    transform: scale(1.5);
+}
+
+.forum-post-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px var(--glow);
+}
+
+.forum-post-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.forum-post-card p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.forum-post-card small {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    opacity: 0.8;
+    position: relative;
+    z-index: 1;
+}
+
+.forum-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.forum .btn-primary {
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.forum .btn-primary:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 30px var(--glow);
+}
+
+@media (max-width: 768px) {
+    .forum {
+        padding: 4rem 1rem;
+    }
+
+    .forum-container p {
+        font-size: 1.1rem;
+    }
+
+    .forum-post-card {
+        padding: 1.5rem;
+    }
+
+    .forum-post-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .forum-post-card p {
+        font-size: 0.95rem;
+    }
+
+    .forum .btn-primary {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .forum-content-container {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .forum-posts {
+        grid-template-columns: 1fr;
+    }
+}
