@@ -119,7 +119,6 @@ Route::get('/test-auth', function () {
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::get('/about', [AboutController::class, 'index'])->name('about');
-    Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
     Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
     Route::get('/community/forum', [CommunityController::class, 'forum'])->name('community.forum');
     Route::get('/community/forum/create', [CommunityController::class, 'create'])->name('forum.create');
