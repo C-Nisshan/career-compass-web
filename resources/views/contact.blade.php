@@ -46,10 +46,11 @@
             <div class="contact-newsletter-container">
                 <h2 class="section-title">Stay in the Loop</h2>
                 <p>Get career tips, updates, and exclusive offers!</p>
-                <form action="{{ route('newsletter.subscribe') }}" method="POST">
+                <form id="newsletter-form" class="newsletter-form">
                     @csrf
                     <input type="email" name="email" placeholder="Enter your email" required>
                     <button type="submit" class="btn-primary">Subscribe</button>
+                    <p id="newsletter-message" style="display: none;"></p>
                 </form>
             </div>
         </section>
@@ -82,13 +83,57 @@ document.getElementById('contact-form').addEventListener('submit', async functio
                 'X-CSRF-TOKEN': data._token
             },
             body: JSON.stringify(data),
-            credentials: 'include' // Include cookies for potential JWT token
+            credentials: 'include'
         });
 
         const result = await response.json();
 
         if (response.ok) {
             messageElement.textContent = 'Your message has been sent successfully!';
+            messageElement.style.color = 'green';
+            form.reset();
+        } else {
+            messageElement.textContent = result.message || 'An error occurred. Please try again.';
+            messageElement.style.color = 'red';
+        }
+    } catch (error) {
+        messageElement.textContent = 'Network error. Please try again later.';
+        messageElement.style.color = 'red';
+    }
+
+    messageElement.style.display = 'block';
+});
+
+document.getElementById('newsletter-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = {
+        email: formData.get('email'),
+        _token: formData.get('_token')
+    };
+
+    const messageElement = document.getElementById('newsletter-message');
+    messageElement.style.display = 'none';
+    messageElement.style.color = '';
+
+    try {
+        const response = await fetch('/api/newsletter/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': data._token
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            messageElement.textContent = 'Thank you for subscribing to our newsletter!';
             messageElement.style.color = 'green';
             form.reset();
         } else {

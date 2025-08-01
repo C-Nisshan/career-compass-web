@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NewsletterController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -17,6 +18,7 @@ Route::post('/auth/forgot-password', [PasswordResetController::class, 'sendOtp']
 Route::post('/auth/verify-otp', [PasswordResetController::class, 'verifyOtp'])->name('api.verify-otp');
 Route::post('/auth/reset-password', [PasswordResetController::class, 'resetPassword'])->name('api.reset-password');
 Route::post('/contact/submit', [ContactController::class, 'submit'])->name('api.contact.submit');
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('api.newsletter.subscribe');
 
 // Protected API routes
 Route::middleware('jwt.cookie')->group(function () {
