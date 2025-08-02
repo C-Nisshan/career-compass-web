@@ -63,13 +63,18 @@ class LoginController extends Controller
     {
         // Set Secure to false for local development, domain to 127.0.0.1
         $cookie = cookie('token', $token, config('jwt.ttl'), '/', '127.0.0.1', false, true, false, 'Lax');
-        
-        $redirect = match ($user->role) {
-            RoleEnum::ADMIN => '/admin/dashboard',
-            RoleEnum::STUDENT => '/student/dashboard',
-            RoleEnum::MENTOR => '/mentor/dashboard',
-            default => '/',
-        };
+
+        // Check if user is a mentor and status is not approved
+        if ($user->role === RoleEnum::MENTOR && $user->status !== 'approved') {
+            $redirect = '/mentor/pending';
+        } else {
+            $redirect = match ($user->role) {
+                RoleEnum::ADMIN => '/admin/dashboard',
+                RoleEnum::STUDENT => '/student/dashboard',
+                RoleEnum::MENTOR => '/mentor/dashboard',
+                default => '/',
+            };
+        }
 
         Log::info('Cookie created', [
             'cookie_name' => 'token',
