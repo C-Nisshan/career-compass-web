@@ -162,9 +162,9 @@ class RegisterController extends Controller
 
             Log::info('Registration successful', ['email' => $user->email, 'token' => substr($token, 0, 10) . '...']);
             return response()->json([
-                'message' => 'Registration successful! Please complete your profile.',
+                'message' => 'Registration successful!',
                 'token' => $token,
-                'redirect' => route('profile.edit'),
+                'redirect' => route('login'),
             ], 201)->withCookie(cookie('token', $token, 60, null, null, false, true));
         } catch (\Exception $e) {
             DB::rollBack();

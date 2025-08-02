@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/register.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mentor-approvals.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mentor-pending.css') }}">
 
     @stack('styles')
 </head>
@@ -33,7 +34,7 @@
     @include('partials.navbar')
 
     <div class="main-wrapper">
-        @if(auth()->check() && (Route::is('admin.*') || Route::is('student.*') || Route::is('mentor.*')))
+        @if(auth()->check() && (Route::is('admin.*') || Route::is('student.*') || (Route::is('mentor.*') && auth()->user()->status === 'approved')))
             @include('partials.sidebar')
         @endif
 
