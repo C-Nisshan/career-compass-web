@@ -57,20 +57,34 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOMContentLoaded fired'); // Debug: Confirm DOMContentLoaded event
+
     const loading = document.getElementById('mentor-approvals-loading');
     const error = document.getElementById('mentor-approvals-error');
     const tableBody = document.getElementById('mentor-approvals-table-body');
     const statusFilter = document.getElementById('mentor-approvals-status-filter');
 
+    // Debug: Check if the statusFilter element exists
+    if (!statusFilter) {
+        console.error('Status filter element not found!');
+        error.textContent = 'Status filter dropdown not found in the DOM.';
+        error.classList.remove('hidden');
+        return;
+    } else {
+        console.log('Status filter element found:', statusFilter); // Debug: Confirm element is found
+    }
+
     let mentorData = [];
 
     async function fetchMentors(status = '') {
+        console.log('Fetching mentors with status:', status); // Debug: Log the status
         loading.classList.remove('hidden');
         error.classList.add('hidden');
         tableBody.innerHTML = '';
 
         try {
             const url = status ? `/api/admin/mentors?status=${encodeURIComponent(status)}` : '/api/admin/mentors';
+            console.log('API URL:', url); // Debug: Log the API URL
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -81,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const result = await response.json();
+            console.log('API Response:', result); // Debug: Log the response
 
             if (response.ok && result.success) {
                 mentorData = result.data;
@@ -156,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const result = await response.json();
+            console.log('Action Response:', result);
 
             if (response.ok && result.success) {
                 fetchMentors(statusFilter.value);
@@ -210,9 +226,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Status filter change
+    // Status filter change with explicit debugging
     statusFilter.addEventListener('change', () => {
+        console.log('Dropdown changed! Selected value:', statusFilter.value); // Debug: Confirm change event
         fetchMentors(statusFilter.value);
+    });
+
+    // Test the dropdown directly
+    statusFilter.addEventListener('click', () => {
+        console.log('Dropdown clicked! Current value:', statusFilter.value); // Debug: Confirm click event
     });
 
     fetchMentors(); // Initial load
