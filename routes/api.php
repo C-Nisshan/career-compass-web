@@ -4,10 +4,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\PasswordResetController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\Admin\MentorApprovalController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -27,4 +28,9 @@ Route::middleware('jwt.cookie')->group(function () {
     Route::post('/refresh', [LoginController::class, 'refresh'])->name('api.refresh');
     Route::get('/admin/pending-registrations', [AdminController::class, 'pendingRegistrations']);
     Route::post('/admin/review-registration/{uuid}', [AdminController::class, 'reviewRegistration']);
+
+    Route::get('/admin/mentors', [MentorApprovalController::class, 'getMentors'])->name('api.mentors.list');
+    Route::post('/admin/mentors/approve/{uuid}', [MentorApprovalController::class, 'approveMentor'])->name('api.mentors.approve');
+    Route::post('/admin/mentors/reject/{uuid}', [MentorApprovalController::class, 'rejectMentor'])->name('api.mentors.reject');
+    Route::post('/admin/mentors/pending/{uuid}', [MentorApprovalController::class, 'setPending'])->name('api.mentors.pending');
 });
