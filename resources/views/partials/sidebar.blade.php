@@ -6,7 +6,7 @@
             @auth
                 @if(auth()->user()->role->value === \App\Enums\RoleEnum::ADMIN->value)
                     <!-- Admin Sidebar -->
-                    <a href="{{ route('admin.dashboard') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('admin.dashboard') ? 'bg-blue-600' : '' }}" aria-label="Admin Dashboard">Admin Dashboard</a>
+                    <a href="{{ route('admin.dashboard') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('admin.dashboard') ? 'bg-blue-600' : '' }}" aria-label="Admin Dashboard">Dashboard</a>
                     
                     <div class="py-2 px-4 font-semibold text-gray-400">Manage Users</div>
                     <a href="{{ route('admin.users') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('admin.users') ? 'bg-blue-600' : '' }}" aria-label="View Users">View Users</a>

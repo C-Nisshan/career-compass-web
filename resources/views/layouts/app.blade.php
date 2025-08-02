@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/forum.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mentor-approvals.css')}}">
 
     @stack('styles')
 </head>

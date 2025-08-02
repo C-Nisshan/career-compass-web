@@ -8,7 +8,6 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CommunityController;
 
 // Admin
@@ -60,66 +59,64 @@ Route::get('/test-auth', function () {
     ]);
 })->middleware('jwt.cookie');
 
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['jwt.cookie', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users');
+    Route::get('/admin/mentor/approvals', [MentorApprovalController::class, 'index'])->name('admin.mentor.approvals');
+    Route::get('/admin/success-stories', [AdminSuccessStoryController::class, 'index'])->name('admin.success.stories');
+    Route::get('/admin/quiz-questions', [QuizQuestionController::class, 'index'])->name('admin.quiz.questions');
+    Route::get('/admin/forum-moderation', [ForumModerationController::class, 'index'])->name('admin.forum.moderation');
+    Route::get('/admin/analytics', [AdminAnalyticsController::class, 'index'])->name('admin.analytics');
+    Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
+});
 
-    
-    /*
-    |--------------------------------------------------------------------------
-    | Admin Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware(['jwt.cookie', 'role:admin'])->group(function () {
-        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-        Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users');
-        Route::get('/admin/mentor-approvals', [MentorApprovalController::class, 'index'])->name('admin.mentor.approvals');
-        Route::get('/admin/success-stories', [AdminSuccessStoryController::class, 'index'])->name('admin.success.stories');
-        Route::get('/admin/quiz-questions', [QuizQuestionController::class, 'index'])->name('admin.quiz.questions');
-        Route::get('/admin/forum-moderation', [ForumModerationController::class, 'index'])->name('admin.forum.moderation');
-        Route::get('/admin/analytics', [AdminAnalyticsController::class, 'index'])->name('admin.analytics');
-        Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
-    });
+/*
+|--------------------------------------------------------------------------
+| Student Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['jwt.cookie', 'role:student'])->group(function () {
+    Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+    Route::get('/student/profile', [StudentProfileController::class, 'index'])->name('student.profile');
+    Route::get('/student/career-recommendations', [CareerRecommendationController::class, 'index'])->name('student.career.recommendations');
+    Route::get('/student/skill-quizzes', [SkillQuizController::class, 'index'])->name('student.skill.quizzes');
+    Route::get('/student/success-stories', [StudentSuccessStoryController::class, 'index'])->name('student.success.stories');
+    Route::get('/student/community-forum', [StudentCommunityForumController::class, 'index'])->name('student.community.forum');
+    Route::get('/student/reports', [ReportController::class, 'index'])->name('student.reports');
+    Route::get('/student/settings', [StudentSettingsController::class, 'index'])->name('student.settings');
+});
 
-    /*
-    |--------------------------------------------------------------------------
-    | Student Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware(['jwt.cookie', 'role:student'])->group( function () {
-        Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
-        Route::get('/student/profile', [StudentProfileController::class, 'index'])->name('student.profile');
-        Route::get('/student/career-recommendations', [CareerRecommendationController::class, 'index'])->name('student.career.recommendations');
-        Route::get('/student/skill-quizzes', [SkillQuizController::class, 'index'])->name('student.skill.quizzes');
-        Route::get('/student/success-stories', [StudentSuccessStoryController::class, 'index'])->name('student.success.stories');
-        Route::get('/student/community-forum', [StudentCommunityForumController::class, 'index'])->name('student.community.forum');
-        Route::get('/student/reports', [ReportController::class, 'index'])->name('student.reports');
-        Route::get('/student/settings', [StudentSettingsController::class, 'index'])->name('student.settings');
-    });
+/*
+|--------------------------------------------------------------------------
+| Mentor Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['jwt.cookie', 'role:mentor'])->group(function () {
+    Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])->name('mentor.dashboard');
+    Route::get('/mentor/profile', [MentorProfileController::class, 'index'])->name('mentor.profile');
+    Route::get('/mentor/community-forum', [MentorCommunityForumController::class, 'index'])->name('mentor.community.forum');
+    Route::get('/mentor/analytics', [MentorAnalyticsController::class, 'index'])->name('mentor.analytics');
+    Route::get('/mentor/settings', [MentorSettingsController::class, 'index'])->name('mentor.settings');
+});
 
-    /*
-    |--------------------------------------------------------------------------
-    | Mentor Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware(['jwt.cookie', 'role:mentor'])->group( function () {
-        Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])->name('mentor.dashboard');
-        Route::get('/mentor/profile', [MentorProfileController::class, 'index'])->name('mentor.profile');
-        Route::get('/mentor/community-forum', [MentorCommunityForumController::class, 'index'])->name('mentor.community.forum');
-        Route::get('/mentor/analytics', [MentorAnalyticsController::class, 'index'])->name('mentor.analytics');
-        Route::get('/mentor/settings', [MentorSettingsController::class, 'index'])->name('mentor.settings');
-    });
+/*
+|--------------------------------------------------------------------------
+| Common Routes for Authenticated Users
+|--------------------------------------------------------------------------
+*/
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Common Routes for Authenticated Users
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-    Route::get('/about', [AboutController::class, 'index'])->name('about');
-    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-    Route::get('/community/forum', [CommunityController::class, 'forum'])->name('community.forum');
-    Route::get('/community/forum/create', [CommunityController::class, 'create'])->name('forum.create');
-    Route::post('/community/forum/store', [CommunityController::class, 'store'])->name('forum.store');
+Route::get('/community/forum', [CommunityController::class, 'forum'])->name('community.forum');
+Route::get('/community/forum/create', [CommunityController::class, 'create'])->name('forum.create');
+Route::post('/community/forum/store', [CommunityController::class, 'store'])->name('forum.store');
