@@ -90,6 +90,7 @@
     font-size: 0.9rem;
     color: #1f2937;
     transition: all 0.3s ease;
+    z-index: 1000;
 }
 
 .mentor-approvals-filter select:focus {
@@ -268,7 +269,7 @@
     background: rgba(31, 41, 55, 0.7); /* dark overlay */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     z-index: 9999;
 }
 
