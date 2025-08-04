@@ -2,31 +2,36 @@
 
 namespace App\Models;
 
-use App\Traits\UuidTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\UuidTrait;
 
 class ForumPost extends Model
 {
-    use HasFactory, SoftDeletes, UuidTrait;
+    use UuidTrait;
 
-    protected $table = 'forum_posts';
+    protected $primaryKey = 'uuid';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
-    protected $fillable = [
-        'user_id',
-        'title',
-        'body',
-    ];
+    protected $fillable = ['uuid', 'user_id', 'title', 'body', 'status', 'pinned'];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
+        'pinned' => 'boolean',
+        'status' => 'string',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'uuid');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(ForumTag::class, 'forum_post_tag', 'forum_post_id', 'forum_tag_id', 'uuid', 'uuid');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(ForumComment::class, 'forum_post_id', 'uuid');
     }
 }

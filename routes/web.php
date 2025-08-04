@@ -122,3 +122,4 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/community/forum', [CommunityController::class, 'forum'])->name('community.forum');
 Route::get('/community/forum/create', [CommunityController::class, 'create'])->name('forum.create');
 Route::post('/community/forum/store', [CommunityController::class, 'store'])->name('forum.store');
+Route::get('/community/forum/{uuid}', [CommunityController::class, 'show'])->name('forum.show');

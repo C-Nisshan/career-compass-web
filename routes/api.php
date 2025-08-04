@@ -9,6 +9,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\MentorApprovalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\ForumController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -33,4 +34,37 @@ Route::middleware('jwt.cookie')->group(function () {
     Route::post('/admin/mentors/approve/{uuid}', [MentorApprovalController::class, 'approveMentor'])->name('api.mentors.approve');
     Route::post('/admin/mentors/reject/{uuid}', [MentorApprovalController::class, 'rejectMentor'])->name('api.mentors.reject');
     Route::post('/admin/mentors/pending/{uuid}', [MentorApprovalController::class, 'setPending'])->name('api.mentors.pending');
+    Route::post('/forum', [ForumController::class, 'store'])->name('api.forum.store');
+
+    // Forum APIs for Students
+    Route::middleware('role:student')->group(function () {
+        Route::put('/forum/{uuid}', [ForumController::class, 'update'])->name('api.forum.update');
+        Route::delete('/forum/{uuid}', [ForumController::class, 'destroy'])->name('api.forum.destroy');
+        Route::post('/forum/{postUuid}/comments', [ForumController::class, 'storeComment'])->name('api.forum.comments.store');
+    });
+
+    // Forum APIs for Mentors
+    Route::middleware('role:mentor')->group(function () {
+        Route::put('/forum/{uuid}', [ForumController::class, 'update'])->name('api.forum.update');
+        Route::delete('/forum/{uuid}', [ForumController::class, 'destroy'])->name('api.forum.destroy');
+        Route::post('/forum/{uuid}/pin', [ForumController::class, 'pin'])->name('api.forum.pin');
+        Route::post('/forum/{uuid}/unpin', [ForumController::class, 'unpin'])->name('api.forum.unpin');
+        Route::post('/forum/{postUuid}/comments', [ForumController::class, 'storeComment'])->name('api.forum.comments.store');
+    });
+
+    // Forum APIs for Admins
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/forum/comments', [ForumController::class, 'comments'])->name('api.forum.comments');
+        Route::put('/forum/{uuid}', [ForumController::class, 'update'])->name('api.forum.update');
+        Route::delete('/forum/{uuid}', [ForumController::class, 'destroy'])->name('api.forum.destroy');
+        Route::post('/forum/{uuid}/pin', [ForumController::class, 'pin'])->name('api.forum.pin');
+        Route::post('/forum/{uuid}/unpin', [ForumController::class, 'unpin'])->name('api.forum.unpin');
+        Route::post('/forum/{uuid}/moderate', [ForumController::class, 'moderatePost'])->name('api.forum.moderate');
+        Route::post('/forum/comments/{uuid}/moderate', [ForumController::class, 'moderateComment'])->name('api.forum.comments.moderate');
+        Route::post('/forum/{postUuid}/comments', [ForumController::class, 'storeComment'])->name('api.forum.comments.store');
+    });
 });
+
+// Public Forum routes
+Route::get('/forum', [ForumController::class, 'index'])->name('api.forum.index');
+Route::get('/forum/{uuid}', [ForumController::class, 'show'])->name('api.forum.show');
