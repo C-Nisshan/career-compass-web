@@ -180,76 +180,144 @@
     font-weight: 600;
 }
 
+/* Mentor Approval Buttons */
 .mentor-approvals-action-btn {
-    display: inline-block;
-    padding: 0.5rem 1.25rem;
-    border-radius: 9999px; /* pill shape */
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #ffffff;
+    position: relative;
+    width: 40px; /* Fixed width for icon-only buttons */
+    height: 40px; /* Fixed height for icon-only buttons */
+    border-radius: 50%; /* Circular buttons */
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent; /* No background by default */
+}
+
+/* Tooltip for hover text */
+.mentor-approvals-action-btn::after {
+    content: attr(title);
+    visibility: hidden;
+    position: absolute;
+    top: -40px; /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1f2937; /* Matches sidebar background */
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 1000;
+}
+
+.mentor-approvals-action-btn:hover::after {
+    visibility: visible;
+    opacity: 1;
 }
 
 /* Approve Button */
 .mentor-approvals-approve-btn {
-    background: linear-gradient(to right, #16a34a, #22c55e);
+    background: transparent; /* No background by default */
+}
+
+/* Approve Button */
+.mentor-approvals-approve-btn::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%231f2937" class="bi bi-check-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>');
 }
 
 .mentor-approvals-approve-btn:hover {
-    background: linear-gradient(to right, #15803d, #16a34a);
-    transform: translateY(-2px) scale(1.03);
+    background-color: #1f2937;
+    transform: scale(1.1);
+}
+
+.mentor-approvals-approve-btn:hover::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%23ffffff" class="bi bi-check-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>'); /* White icon on hover */
 }
 
 /* Reject Button */
 .mentor-approvals-reject-btn {
-    background: linear-gradient(to right, #dc2626, #ef4444);
+    background: transparent; /* No background by default */
+}
+
+.mentor-approvals-reject-btn::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%231f2937" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>');
 }
 
 .mentor-approvals-reject-btn:hover {
-    background: linear-gradient(to right, #b91c1c, #dc2626);
-    transform: translateY(-2px) scale(1.03);
+    background-color: #1f2937;
+    transform: scale(1.1);
+}
+
+.mentor-approvals-reject-btn:hover::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%23ffffff" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>'); /* White icon on hover */
 }
 
 /* Pending Button */
 .mentor-approvals-pending-btn {
-    background: linear-gradient(to right, #f59e0b, #fbbf24);
+    background: transparent; /* No background by default */
+}
+
+.mentor-approvals-pending-btn::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%231f2937" class="bi bi-hourglass-split" viewBox="0 0 16 16"><path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/></svg>');
 }
 
 .mentor-approvals-pending-btn:hover {
-    background: linear-gradient(to right, #d97706, #f59e0b);
-    transform: translateY(-2px) scale(1.03);
+    background-color: #1f2937;
+    transform: scale(1.1);
 }
 
-/* Optional: View Button Styling */
-.mentor-view-btn {
-    background: linear-gradient(to right, #6366f1, #818cf8);
-    margin-top: 0.5rem;
+.mentor-approvals-pending-btn:hover::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%23ffffff" class="bi bi-hourglass-split" viewBox="0 0 16 16"><path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c.29.139.443.377.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/></svg>'); /* White icon on hover */
 }
 
-.mentor-view-btn:hover {
-    background: linear-gradient(to right, #4f46e5, #6366f1);
-    transform: translateY(-2px) scale(1.03);
+/* View Details Button */
+.mentor-approvals-view-btn {
+    background: #ffffff; /* Default white background for visibility */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Match other buttons' shadow */
 }
 
-/* Wrapper to center all action buttons in the table cell */
+.mentor-approvals-view-btn::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%231f2937" class="bi bi-eye" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 8 8-5.5 8-5.5zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>');
+}
+
+.mentor-approvals-view-btn:hover {
+    background: linear-gradient(to right, #1f2937, #374151); /* Dark blue-gray gradient on hover */
+    transform: scale(1.1);
+}
+
+.mentor-approvals-view-btn:hover::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%23ffffff" class="bi bi-eye" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 8 8-5.5 8-5.5zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>'); /* White icon on hover */
+}
+
+/* Wrapper to align buttons in a horizontal line */
 .mentor-approvals-actions-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap; /* allow stacking on small screens */
+    gap: 0.75rem; /* Space between buttons */
+    flex-wrap: nowrap; /* Ensure buttons stay in one line */
 }
 
-.mentor-approvals-no-data {
-    text-align: center;
-    padding: 2rem;
-    color: #6b7280;
-    font-size: 1.2rem;
-    font-weight: 500;
+/* Responsive Design for Buttons */
+@media (max-width: 768px) {
+    .mentor-approvals-actions-wrapper {
+        gap: 0.5rem; /* Slightly reduce gap for smaller screens */
+    }
+
+    .mentor-approvals-action-btn {
+        width: 36px; /* Slightly smaller buttons for mobile */
+        height: 36px;
+    }
+
+    .mentor-approvals-action-btn::before {
+        transform: scale(0.9); /* Slightly smaller icons on mobile */
+    }
 }
 
 /* Animation for Loading */
@@ -298,12 +366,6 @@
     display: none !important;
 }
 
-@media (max-width: 640px) {
-    .mentor-approvals-actions-wrapper {
-        flex-direction: column;
-    }
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .mentor-approvals-title {
@@ -319,11 +381,6 @@
         max-width: 200px;
     }
 
-    .mentor-approvals-action-btn {
-        width: 100%;
-        margin-bottom: 0.5rem;
-    }
-
     .mentor-approvals-table-container {
         overflow-x: auto;
     }
@@ -332,5 +389,17 @@
         font-size: 0.8rem;
         padding: 0.75rem;
     }
-}
 
+    .mentor-approvals-actions-wrapper {
+        gap: 0.5rem; /* Slightly reduce gap for smaller screens */
+    }
+
+    .mentor-approvals-action-btn {
+        width: 36px; /* Slightly smaller buttons for mobile */
+        height: 36px;
+    }
+
+    .mentor-approvals-action-btn::before {
+        transform: scale(0.9); /* Slightly smaller icons on mobile */
+    }
+}

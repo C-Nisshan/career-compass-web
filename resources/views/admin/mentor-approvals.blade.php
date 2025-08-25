@@ -110,18 +110,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         let actions = '';
                         if (mentor.status === 'pending') {
                             actions = `
-                                <button onclick="handleAction('${mentor.uuid}', 'approve')" class="mentor-approvals-action-btn mentor-approvals-approve-btn">Approve</button>
-                                <button onclick="handleAction('${mentor.uuid}', 'reject')" class="mentor-approvals-action-btn mentor-approvals-reject-btn">Reject</button>
+                                <button onclick="handleAction('${mentor.uuid}', 'approve')" class="mentor-approvals-action-btn mentor-approvals-approve-btn" title="Approve"></button>
+                                <button onclick="handleAction('${mentor.uuid}', 'reject')" class="mentor-approvals-action-btn mentor-approvals-reject-btn" title="Reject"></button>
                             `;
                         } else if (mentor.status === 'approved') {
                             actions = `
-                                <button onclick="handleAction('${mentor.uuid}', 'pending')" class="mentor-approvals-action-btn mentor-approvals-pending-btn">Set Pending</button>
-                                <button onclick="handleAction('${mentor.uuid}', 'reject')" class="mentor-approvals-action-btn mentor-approvals-reject-btn">Reject</button>
+                                <button onclick="handleAction('${mentor.uuid}', 'pending')" class="mentor-approvals-action-btn mentor-approvals-pending-btn" title="Set Pending"></button>
+                                <button onclick="handleAction('${mentor.uuid}', 'reject')" class="mentor-approvals-action-btn mentor-approvals-reject-btn" title="Reject"></button>
                             `;
                         } else if (mentor.status === 'rejected') {
                             actions = `
-                                <button onclick="handleAction('${mentor.uuid}', 'pending')" class="mentor-approvals-action-btn mentor-approvals-pending-btn">Set Pending</button>
-                                <button onclick="handleAction('${mentor.uuid}', 'approve')" class="mentor-approvals-action-btn mentor-approvals-approve-btn">Approve</button>
+                                <button onclick="handleAction('${mentor.uuid}', 'pending')" class="mentor-approvals-action-btn mentor-approvals-pending-btn" title="Set Pending"></button>
+                                <button onclick="handleAction('${mentor.uuid}', 'approve')" class="mentor-approvals-action-btn mentor-approvals-approve-btn" title="Approve"></button>
                             `;
                         }
 
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td>
                                 <div class="mentor-approvals-actions-wrapper">
                                     ${actions}
-                                    <button class="mentor-approvals-action-btn mentor-view-btn" data-uuid="${mentor.uuid}">View Details</button>
+                                    <button class="mentor-approvals-action-btn mentor-approvals-view-btn" data-uuid="${mentor.uuid}" title="View Details"></button>
                                 </div>
                             </td>
                         `;
