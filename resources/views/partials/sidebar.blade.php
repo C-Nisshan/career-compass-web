@@ -15,6 +15,9 @@
                     <div class="py-2 px-4 font-semibold text-gray-400">Manage Content</div>
                     <a href="{{ route('admin.success.stories') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('admin.success.stories') ? 'bg-blue-600' : '' }}" aria-label="Success Stories">Success Stories</a>
                     <a href="{{ route('admin.quiz.questions') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('admin.quiz.questions') ? 'bg-blue-600' : '' }}" aria-label="Quiz Questions">Quiz Questions</a>
+                    
+                    <div class="py-2 px-4 font-semibold text-gray-400">Community</div>
+                    <a href="{{ route('community.forum') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('community.forum', 'forum.show') ? 'bg-blue-600' : '' }}" aria-label="Community Forum">Community Forum</a>
                     <a href="{{ route('admin.forum.moderation') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('admin.forum.moderation') ? 'bg-blue-600' : '' }}" aria-label="Forum Moderation">Forum Moderation</a>
                     
                     <a href="{{ route('admin.analytics') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('admin.analytics') ? 'bg-blue-600' : '' }}" aria-label="Analytics">Analytics</a>
@@ -28,7 +31,11 @@
                     <a href="{{ route('student.career.recommendations') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.career.recommendations') ? 'bg-blue-600' : '' }}" aria-label="Career Recommendations">Career Recommendations</a>
                     <a href="{{ route('student.skill.quizzes') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.skill.quizzes') ? 'bg-blue-600' : '' }}" aria-label="Skill Quizzes">Skill Quizzes</a>
                     <a href="{{ route('student.success.stories') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.success.stories') ? 'bg-blue-600' : '' }}" aria-label="Success Stories">Success Stories</a>
-                    <a href="{{ route('student.community.forum') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.community.forum') ? 'bg-blue-600' : '' }}" aria-label="Community Forum">Community Forum</a>
+                    
+                    <div class="py-2 px-4 font-semibold text-gray-400">Community</div>
+                    <a href="{{ route('student.community.forum') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('student.community.forum', 'community.forum', 'forum.show') ? 'bg-blue-600' : '' }}" aria-label="Community Forum">View Forum</a>
+                    <a href="{{ route('forum.create') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('forum.create') ? 'bg-blue-600' : '' }}" aria-label="Create Forum Post">Create Post</a>
+                    
                     <a href="{{ route('student.reports') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.reports') ? 'bg-blue-600' : '' }}" aria-label="Reports">Reports</a>
                     <a href="{{ route('student.settings') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('student.settings') ? 'bg-blue-600' : '' }}" aria-label="Settings">Settings</a>
 
@@ -42,18 +49,31 @@
                         <!-- Active Mentor Sidebar -->
                         <a href="{{ route('mentor.dashboard') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.dashboard') ? 'bg-blue-600' : '' }}" aria-label="Mentor Dashboard">Dashboard</a>
                         <a href="{{ route('mentor.profile') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.profile') ? 'bg-blue-600' : '' }}" aria-label="Profile">Profile</a>
-                        <a href="{{ route('mentor.community.forum') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.community.forum') ? 'bg-blue-600' : '' }}" aria-label="Community Forum">Community Forum</a>
+                        
+                        <div class="py-2 px-4 font-semibold text-gray-400">Community</div>
+                        <a href="{{ route('mentor.community.forum') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('mentor.community.forum', 'community.forum', 'forum.show') ? 'bg-blue-600' : '' }}" aria-label="Community Forum">View Forum</a>
+                        <a href="{{ route('forum.create') }}" class="block py-2 px-6 rounded hover:bg-blue-600 {{ Route::is('forum.create') ? 'bg-blue-600' : '' }}" aria-label="Create Forum Post">Create Post</a>
+                        
                         <a href="{{ route('mentor.analytics') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.analytics') ? 'bg-blue-600' : '' }}" aria-label="Mentorship Analytics">Mentorship Analytics</a>
                         <a href="{{ route('mentor.settings') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('mentor.settings') ? 'bg-blue-600' : '' }}" aria-label="Settings">Settings</a>
                     @endif
                 @endif
 
                 <!-- Logout for all authenticated users -->
-                <form id="logout-form" action="{{ route('api.logout') }}" method="POST" class="mt-4">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mt-4">
                     @csrf
                     <button type="submit" class="block w-full text-left py-2 px-4 rounded hover:bg-red-600" aria-label="Logout">Logout</button>
                 </form>
             @endauth
+            @guest
+                <!-- Guest Sidebar -->
+                <a href="{{ route('home') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('home') ? 'bg-blue-600' : '' }}" aria-label="Home">Home</a>
+                <a href="{{ route('login') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('login') ? 'bg-blue-600' : '' }}" aria-label="Login">Login</a>
+                <a href="{{ route('register') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('register') ? 'bg-blue-600' : '' }}" aria-label="Register">Register</a>
+                <a href="{{ route('about') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('about') ? 'bg-blue-600' : '' }}" aria-label="About">About</a>
+                <a href="{{ route('contact') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('contact') ? 'bg-blue-600' : '' }}" aria-label="Contact">Contact</a>
+                <a href="{{ route('community.forum') }}" class="block py-2 px-4 rounded hover:bg-blue-600 {{ Route::is('community.forum', 'forum.show') ? 'bg-blue-600' : '' }}" aria-label="Community Forum">Community Forum</a>
+            @endguest
         </nav>
     </div>
 </div>
