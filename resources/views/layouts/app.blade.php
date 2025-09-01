@@ -32,10 +32,15 @@
 
     @stack('styles')
 </head>
-<body>
-    @include('partials.navbar')
+<body class="{{ (auth()->check() && (Route::is('admin.*') || Route::is('student.*') || (Route::is('mentor.*') && auth()->user()->status === 'approved'))) ? 'dashboard' : '' }}">
+    
+    {{-- Show Navbar only on public pages --}}
+    @unless(auth()->check() && (Route::is('admin.*') || Route::is('student.*') || (Route::is('mentor.*') && auth()->user()->status === 'approved')))
+        @include('partials.navbar')
+    @endunless
 
     <div class="main-wrapper">
+        {{-- Show Sidebar only on authenticated dashboard routes --}}
         @if(auth()->check() && (Route::is('admin.*') || Route::is('student.*') || (Route::is('mentor.*') && auth()->user()->status === 'approved')))
             @include('partials.sidebar')
         @endif
@@ -48,11 +53,9 @@
     @include('partials.footer')
 
     @stack('modals')
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JS -->
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <script src="{{ asset('assets/js/auth/logout.js') }}"></script>
     <script src="{{ asset('assets/js/global.js') }}"></script>

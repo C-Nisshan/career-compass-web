@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\MentorApprovalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\CareerPredictionController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -68,3 +69,5 @@ Route::middleware('jwt.cookie')->group(function () {
 // Public Forum routes
 Route::get('/forum', [ForumController::class, 'index'])->name('api.forum.index');
 Route::get('/forum/{uuid}', [ForumController::class, 'show'])->name('api.forum.show');
+
+Route::post('/predict-career', [CareerPredictionController::class, 'predict'])->name('api.predict-career');
