@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/mentor-pending.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/forum-moderation.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/forum-create.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin-manage-users.css') }}">
 
     @stack('styles')
 </head>

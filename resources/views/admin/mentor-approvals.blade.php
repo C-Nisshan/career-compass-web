@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Delegate click event for "View Details" buttons
     tableBody.addEventListener('click', function (e) {
-        if (e.target.classList.contains('mentor-view-btn')) {
+        if (e.target.classList.contains('mentor-approvals-view-btn')) {
             const uuid = e.target.getAttribute('data-uuid');
             const mentor = mentorData.find(m => m.uuid === uuid);
             if (mentor) openMentorModal(mentor);

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\CareerPredictionController;
+use App\Http\Controllers\Admin\UserManagementController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -63,6 +64,9 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::post('/forum/{uuid}/moderate', [ForumController::class, 'moderatePost'])->name('api.forum.moderate');
         Route::post('/forum/comments/{uuid}/moderate', [ForumController::class, 'moderateComment'])->name('api.forum.comments.moderate');
         Route::post('/forum/{postUuid}/comments', [ForumController::class, 'storeComment'])->name('api.forum.comments.store');
+
+        Route::get('/admin/users', [UserManagementController::class, 'getUsers'])->name('api.admin.users');
+        Route::delete('/admin/users/{uuid}', [UserManagementController::class, 'deleteUser'])->name('api.admin.users.delete');
     });
 });
 
