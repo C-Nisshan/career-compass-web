@@ -226,7 +226,6 @@
     background: transparent; /* No background by default */
 }
 
-/* Approve Button */
 .mentor-approvals-approve-btn::before {
     content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%231f2937" class="bi bi-check-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>');
 }
@@ -264,7 +263,7 @@
 }
 
 .mentor-approvals-pending-btn::before {
-    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%231f2937" class="bi bi-hourglass-split" viewBox="0 0 16 16"><path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/></svg>');
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="%231f2937" class="bi bi-hourglass-split" viewBox="0 0 16 16"><path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c.29.139.443.377.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/></svg>');
 }
 
 .mentor-approvals-pending-btn:hover {
@@ -304,22 +303,6 @@
     flex-wrap: nowrap; /* Ensure buttons stay in one line */
 }
 
-/* Responsive Design for Buttons */
-@media (max-width: 768px) {
-    .mentor-approvals-actions-wrapper {
-        gap: 0.5rem; /* Slightly reduce gap for smaller screens */
-    }
-
-    .mentor-approvals-action-btn {
-        width: 36px; /* Slightly smaller buttons for mobile */
-        height: 36px;
-    }
-
-    .mentor-approvals-action-btn::before {
-        transform: scale(0.9); /* Slightly smaller icons on mobile */
-    }
-}
-
 /* Animation for Loading */
 @keyframes mentor-approvals-pulse {
     0% { opacity: 0.6; }
@@ -334,11 +317,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(31, 41, 55, 0.7); /* dark overlay */
+    background: rgba(31, 41, 55, 0.7); /* Dark overlay */
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center; /* Center vertically */
     z-index: 9999;
+    overflow-y: auto; /* Allow scrolling if modal content overflows */
 }
 
 /* Modal Content */
@@ -350,6 +334,13 @@
     max-width: 600px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     position: relative;
+    max-height: 80vh; /* Prevent modal content from exceeding viewport height */
+    overflow-y: auto; /* Allow scrolling within modal content */
+}
+
+/* Ensure modal content has padding at the bottom */
+.mentor-modal-content > *:last-child {
+    margin-bottom: 1rem;
 }
 
 /* Close Button */
@@ -360,6 +351,34 @@
     font-size: 1.8rem;
     color: #6b7280;
     cursor: pointer;
+    z-index: 10000; /* Ensure close button is above modal content */
+}
+
+.mentor-modal-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #1f2937;
+}
+
+.mentor-modal-content p {
+    margin-bottom: 0.5rem;
+    color: #6b7280;
+}
+
+.mentor-modal-content a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.mentor-modal-content a:hover {
+    text-decoration: underline;
+}
+
+.mentor-approvals-no-data {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+    font-size: 1rem;
 }
 
 .hidden {
@@ -368,6 +387,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .mentor-approvals-container {
+        padding: 1rem;
+    }
+
     .mentor-approvals-title {
         font-size: 2rem;
     }
@@ -385,7 +408,8 @@
         overflow-x: auto;
     }
 
-    .mentor-approvals-table th, .mentor-approvals-table td {
+    .mentor-approvals-table th,
+    .mentor-approvals-table td {
         font-size: 0.8rem;
         padding: 0.75rem;
     }
@@ -401,5 +425,10 @@
 
     .mentor-approvals-action-btn::before {
         transform: scale(0.9); /* Slightly smaller icons on mobile */
+    }
+
+    .mentor-modal-content {
+        padding: 1.5rem;
+        width: 95%;
     }
 }

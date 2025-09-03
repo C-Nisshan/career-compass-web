@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="admin-manage-users-container">
     <div class="admin-manage-users-content">
         <h1 class="admin-manage-users-title">User Management Dashboard</h1>
@@ -36,15 +35,15 @@
                         <!-- Populated dynamically via JavaScript -->
                     </tbody>
                 </table>
+            </div>
+        </div>
 
-                <!-- User Detail Modal -->
-                <div id="admin-manage-users-detail-modal" class="admin-manage-users-modal hidden">
-                    <div class="admin-manage-users-modal-content">
-                        <span id="admin-manage-users-modal-close" class="admin-manage-users-modal-close">&times;</span>
-                        <div id="admin-manage-users-modal-body">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
+        <!-- User Detail Modal -->
+        <div id="admin-manage-users-detail-modal" class="admin-manage-users-modal hidden">
+            <div class="admin-manage-users-modal-content">
+                <span id="admin-manage-users-modal-close" class="admin-manage-users-modal-close">&times;</span>
+                <div id="admin-manage-users-modal-body">
+                    <!-- Populated dynamically -->
                 </div>
             </div>
         </div>
@@ -59,10 +58,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const error = document.getElementById('admin-manage-users-error');
     const tableBody = document.getElementById('admin-manage-users-table-body');
     const roleFilter = document.getElementById('admin-manage-users-role-filter');
+    const modal = document.getElementById('admin-manage-users-detail-modal');
 
     if (!roleFilter) {
         console.error('Role filter element not found!');
         error.textContent = 'Role filter dropdown not found in the DOM.';
+        error.classList.remove('hidden');
+        return;
+    }
+
+    if (!modal) {
+        console.error('Detail modal not found!');
+        error.textContent = 'Detail modal not found in the DOM.';
         error.classList.remove('hidden');
         return;
     }
@@ -156,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // View Details modal open
     function openUserModal(user) {
-        const modal = document.getElementById('admin-manage-users-detail-modal');
         const modalBody = document.getElementById('admin-manage-users-modal-body');
 
         let profileDetails = '';
@@ -201,22 +207,28 @@ document.addEventListener('DOMContentLoaded', function () {
             ${profileDetails}
         `;
 
+        modal.style.display = 'flex';
         modal.classList.remove('hidden');
+        modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     // Close modal
     document.getElementById('admin-manage-users-modal-close').addEventListener('click', () => {
-        document.getElementById('admin-manage-users-detail-modal').classList.add('hidden');
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
     });
 
     // Delegate click event for action buttons
     tableBody.addEventListener('click', function (e) {
-        if (e.target.classList.contains('admin-manage-users-view-btn')) {
-            const uuid = e.target.getAttribute('data-uuid');
-            const user = userData.find(u => u.uuid === uuid);
+        const target = e.target.closest('.admin-manage-users-action-btn');
+        if (!target) return;
+
+        const uuid = target.getAttribute('data-uuid');
+        const user = userData.find(u => u.uuid === uuid);
+
+        if (target.classList.contains('admin-manage-users-view-btn')) {
             if (user) openUserModal(user);
-        } else if (e.target.classList.contains('admin-manage-users-delete-btn')) {
-            const uuid = e.target.getAttribute('data-uuid');
+        } else if (target.classList.contains('admin-manage-users-delete-btn')) {
             handleDelete(uuid);
         }
     });
