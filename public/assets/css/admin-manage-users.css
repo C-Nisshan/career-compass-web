@@ -273,8 +273,9 @@
     background: rgba(31, 41, 55, 0.7); /* Dark overlay */
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center; /* Center vertically */
     z-index: 9999;
+    overflow-y: auto; /* Allow scrolling if modal content overflows */
 }
 
 /* Modal Content */
@@ -286,6 +287,13 @@
     max-width: 600px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     position: relative;
+    max-height: 80vh; /* Prevent modal content from exceeding viewport height */
+    overflow-y: auto; /* Allow scrolling within modal content */
+}
+
+/* Ensure modal content has padding at the bottom */
+.admin-manage-users-modal-content > *:last-child {
+    margin-bottom: 1rem;
 }
 
 /* Close Button */
@@ -296,6 +304,7 @@
     font-size: 1.8rem;
     color: #6b7280;
     cursor: pointer;
+    z-index: 10000; /* Ensure close button is above modal content */
 }
 
 .admin-manage-users-modal-content h2 {
@@ -369,5 +378,10 @@
 
     .admin-manage-users-action-btn::before {
         transform: scale(0.9); /* Slightly smaller icons on mobile */
+    }
+
+    .admin-manage-users-modal-content {
+        padding: 1.5rem;
+        width: 95%;
     }
 }

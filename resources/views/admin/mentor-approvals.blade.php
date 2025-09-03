@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<link href="{{ asset('css/mentor-approvals.css') }}" rel="stylesheet">
 
 <div class="mentor-approvals-container">
     <div class="mentor-approvals-content">
@@ -40,15 +39,15 @@
                         <!-- Populated dynamically via JavaScript -->
                     </tbody>
                 </table>
+            </div>
+        </div>
 
-                <!-- Mentor Detail Modal -->
-                <div id="mentor-detail-modal" class="mentor-modal hidden">
-                    <div class="mentor-modal-content">
-                        <span id="mentor-modal-close" class="mentor-modal-close">&times;</span>
-                        <div id="mentor-modal-body">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
+        <!-- Mentor Detail Modal -->
+        <div id="mentor-detail-modal" class="mentor-modal hidden">
+            <div class="mentor-modal-content">
+                <span id="mentor-modal-close" class="mentor-modal-close">&times;</span>
+                <div id="mentor-modal-body">
+                    <!-- Populated dynamically -->
                 </div>
             </div>
         </div>
@@ -57,34 +56,44 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOMContentLoaded fired'); // Debug: Confirm DOMContentLoaded event
+    console.log('DOMContentLoaded fired for mentor approvals');
 
     const loading = document.getElementById('mentor-approvals-loading');
     const error = document.getElementById('mentor-approvals-error');
     const tableBody = document.getElementById('mentor-approvals-table-body');
     const statusFilter = document.getElementById('mentor-approvals-status-filter');
+    const modal = document.getElementById('mentor-detail-modal');
 
-    // Debug: Check if the statusFilter element exists
+    // Check if statusFilter and modal exist
     if (!statusFilter) {
         console.error('Status filter element not found!');
         error.textContent = 'Status filter dropdown not found in the DOM.';
         error.classList.remove('hidden');
         return;
     } else {
-        console.log('Status filter element found:', statusFilter); // Debug: Confirm element is found
+        console.log('Status filter element found:', statusFilter);
+    }
+
+    if (!modal) {
+        console.error('Detail modal not found!');
+        error.textContent = 'Detail modal not found in the DOM.';
+        error.classList.remove('hidden');
+        return;
+    } else {
+        console.log('Detail modal found:', modal);
     }
 
     let mentorData = [];
 
     async function fetchMentors(status = '') {
-        console.log('Fetching mentors with status:', status); // Debug: Log the status
+        console.log('Fetching mentors with status:', status);
         loading.classList.remove('hidden');
         error.classList.add('hidden');
         tableBody.innerHTML = '';
 
         try {
             const url = status ? `/api/admin/mentors?status=${encodeURIComponent(status)}` : '/api/admin/mentors';
-            console.log('API URL:', url); // Debug: Log the API URL
+            console.log('API URL:', url);
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -95,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const result = await response.json();
-            console.log('API Response:', result); // Debug: Log the response
+            console.log('API Response:', result);
 
             if (response.ok && result.success) {
                 mentorData = result.data;
@@ -189,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // View Details modal open
     function openMentorModal(mentor) {
-        const modal = document.getElementById('mentor-detail-modal');
         const modalBody = document.getElementById('mentor-modal-body');
 
         const expertise = Array.isArray(mentor.mentor_profile?.areas_of_expertise)
@@ -209,32 +217,36 @@ document.addEventListener('DOMContentLoaded', function () {
             <p><strong>Availability:</strong> ${mentor.mentor_profile?.availability || 'N/A'}</p>
         `;
 
+        modal.style.display = 'flex';
         modal.classList.remove('hidden');
+        modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     // Close modal
     document.getElementById('mentor-modal-close').addEventListener('click', () => {
-        document.getElementById('mentor-detail-modal').classList.add('hidden');
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
     });
 
     // Delegate click event for "View Details" buttons
     tableBody.addEventListener('click', function (e) {
-        if (e.target.classList.contains('mentor-approvals-view-btn')) {
-            const uuid = e.target.getAttribute('data-uuid');
+        const target = e.target.closest('.mentor-approvals-view-btn');
+        if (target) {
+            const uuid = target.getAttribute('data-uuid');
             const mentor = mentorData.find(m => m.uuid === uuid);
             if (mentor) openMentorModal(mentor);
         }
     });
 
-    // Status filter change with explicit debugging
+    // Status filter change
     statusFilter.addEventListener('change', () => {
-        console.log('Dropdown changed! Selected value:', statusFilter.value); // Debug: Confirm change event
+        console.log('Dropdown changed! Selected value:', statusFilter.value);
         fetchMentors(statusFilter.value);
     });
 
     // Test the dropdown directly
     statusFilter.addEventListener('click', () => {
-        console.log('Dropdown clicked! Current value:', statusFilter.value); // Debug: Confirm click event
+        console.log('Dropdown clicked! Current value:', statusFilter.value);
     });
 
     fetchMentors(); // Initial load

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\CareerPredictionController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\SuccessStoryController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -67,6 +68,11 @@ Route::middleware('jwt.cookie')->group(function () {
 
         Route::get('/admin/users', [UserManagementController::class, 'getUsers'])->name('api.admin.users');
         Route::delete('/admin/users/{uuid}', [UserManagementController::class, 'deleteUser'])->name('api.admin.users.delete');
+
+        Route::get('/admin/success-stories', [SuccessStoryController::class, 'getStories'])->name('api.admin.success-stories');
+        Route::post('/admin/success-stories', [SuccessStoryController::class, 'store'])->name('api.admin.success-stories.store');
+        Route::put('/admin/success-stories/{uuid}', [SuccessStoryController::class, 'update'])->name('api.admin.success-stories.update');
+        Route::delete('/admin/success-stories/{uuid}', [SuccessStoryController::class, 'destroy'])->name('api.admin.success-stories.destroy');
     });
 });
 
