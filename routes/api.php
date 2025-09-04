@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CommentModerationController;
 use App\Http\Controllers\Student\ForumController;
 use App\Http\Controllers\Mentor\MentorForumController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\Student\SkillQuizController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -51,6 +52,13 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::get('/student/forum-posts/{uuid}', [ForumController::class, 'getPost']);
         Route::post('/student/forum-posts/{uuid}/comment', [ForumController::class, 'storeComment']);
         Route::post('/student/forum-posts/{uuid}/vote', [ForumController::class, 'toggleVote']);
+
+        // New routes to add to api.php under the student middleware group:
+        Route::get('/student/quizzes', [SkillQuizController::class, 'getQuizzes'])->name('api.student.quizzes');
+        Route::get('/student/quizzes/{uuid}', [SkillQuizController::class, 'getQuiz'])->name('api.student.quiz');
+        Route::post('/student/quizzes/{uuid}/submit', [SkillQuizController::class, 'submitQuiz'])->name('api.student.quiz.submit');
+        Route::post('/student/quizzes/{quizUuid}/questions/{questionUuid}/check', [SkillQuizController::class, 'checkAnswer'])->name('api.student.quiz.check-answer');
+        Route::get('/student/quiz-history', [SkillQuizController::class, 'getHistory'])->name('api.student.quiz-history');
     });
 
     // Forum APIs for Mentors
