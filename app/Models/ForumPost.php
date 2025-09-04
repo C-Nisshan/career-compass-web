@@ -32,7 +32,12 @@ class ForumPost extends Model
 
     public function comments()
     {
-        return $this->hasMany(ForumComment::class, 'forum_post_id', 'uuid');
+        return $this->hasMany(ForumComment::class, 'forum_post_id', 'uuid')->where('status', 'active');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(ForumVote::class, 'forum_post_id', 'uuid');
     }
 
     public function reports()
