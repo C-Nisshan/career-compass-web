@@ -9,13 +9,13 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\MentorApprovalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\ForumController;
 use App\Http\Controllers\CareerPredictionController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\SuccessStoryController;
 use App\Http\Controllers\Admin\QuizManagementController;
 use App\Http\Controllers\Admin\ForumModerationController;
 use App\Http\Controllers\Admin\CommentModerationController;
+use App\Http\Controllers\Student\ForumController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -40,22 +40,15 @@ Route::middleware('jwt.cookie')->group(function () {
     Route::post('/admin/mentors/approve/{uuid}', [MentorApprovalController::class, 'approveMentor'])->name('api.mentors.approve');
     Route::post('/admin/mentors/reject/{uuid}', [MentorApprovalController::class, 'rejectMentor'])->name('api.mentors.reject');
     Route::post('/admin/mentors/pending/{uuid}', [MentorApprovalController::class, 'setPending'])->name('api.mentors.pending');
-    Route::post('/forum', [ForumController::class, 'store'])->name('api.forum.store');
 
     // Forum APIs for Students
     Route::middleware('role:student')->group(function () {
-        Route::put('/forum/{uuid}', [ForumController::class, 'update'])->name('api.forum.update');
-        Route::delete('/forum/{uuid}', [ForumController::class, 'destroy'])->name('api.forum.destroy');
-        Route::post('/forum/{postUuid}/comments', [ForumController::class, 'storeComment'])->name('api.forum.comments.store');
+        Route::get('/student/forum-posts', [ForumController::class, 'getPosts'])->name('api.student.forum-posts');
     });
 
     // Forum APIs for Mentors
     Route::middleware('role:mentor')->group(function () {
-        Route::put('/forum/{uuid}', [ForumController::class, 'update'])->name('api.forum.update');
-        Route::delete('/forum/{uuid}', [ForumController::class, 'destroy'])->name('api.forum.destroy');
-        Route::post('/forum/{uuid}/pin', [ForumController::class, 'pin'])->name('api.forum.pin');
-        Route::post('/forum/{uuid}/unpin', [ForumController::class, 'unpin'])->name('api.forum.unpin');
-        Route::post('/forum/{postUuid}/comments', [ForumController::class, 'storeComment'])->name('api.forum.comments.store');
+        
     });
 
     // Forum APIs for Admins

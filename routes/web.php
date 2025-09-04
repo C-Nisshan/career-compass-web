@@ -31,6 +31,7 @@ use App\Http\Controllers\Student\SuccessStoryController as StudentSuccessStoryCo
 use App\Http\Controllers\Student\CommunityForumController as StudentCommunityForumController;
 use App\Http\Controllers\Student\ReportController;
 use App\Http\Controllers\Student\SettingsController as StudentSettingsController;
+use App\Http\Controllers\Student\ForumController;
 
 // Mentor
 use App\Http\Controllers\Mentor\MentorDashboardController;
@@ -93,6 +94,8 @@ Route::middleware(['jwt.cookie', 'role:student'])->group(function () {
     Route::get('/student/community-forum', [StudentCommunityForumController::class, 'index'])->name('student.community.forum');
     Route::get('/student/reports', [ReportController::class, 'index'])->name('student.reports');
     Route::get('/student/settings', [StudentSettingsController::class, 'index'])->name('student.settings');
+
+    Route::get('/student/community-forum/browse-posts', [ForumController::class, 'browsePosts'])->name('student.forum.browse-posts');
 });
 
 /*
