@@ -1,0 +1,226 @@
+/* assets/css/student/skill-quiz/student-quiz.css */
+
+.student-quiz-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.student-quiz-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #1f2937;
+}
+
+.student-quiz-list .student-quiz-item {
+    background: #f3f4f6;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.student-quiz-list .student-quiz-item h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.student-quiz-list .student-quiz-item p {
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.student-quiz-list .student-quiz-start {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.student-quiz-list .student-quiz-start:hover {
+    opacity: 0.9;
+}
+
+.student-quiz-display {
+    margin-top: 2rem;
+}
+
+.student-quiz-name {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.student-quiz-description {
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+.student-quiz-progress {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.student-quiz-form .student-quiz-question {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.student-quiz-form .student-quiz-question label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.student-quiz-form .student-quiz-question input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+
+.student-quiz-question-feedback {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.student-quiz-question-feedback.correct {
+    background: #dcfce7;
+    border: 1px solid #22c55e;
+    color: #15803d;
+}
+
+.student-quiz-question-feedback.incorrect {
+    background: #fee2e2;
+    border: 1px solid #ef4444;
+    color: #b91c1c;
+}
+
+.student-quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.student-quiz-previous {
+    background: #6b7280;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.student-quiz-previous:hover {
+    opacity: 0.9;
+}
+
+.student-quiz-submit {
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.student-quiz-submit:hover {
+    opacity: 0.9;
+}
+
+.student-quiz-results-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.student-quiz-feedback .student-quiz-feedback-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.student-quiz-feedback .student-quiz-feedback-item.correct {
+    background: #dcfce7;
+    border: 1px solid #22c55e;
+}
+
+.student-quiz-feedback .student-quiz-feedback-item.incorrect {
+    background: #fee2e2;
+    border: 1px solid #ef4444;
+}
+
+.student-quiz-back {
+    background: #6b7280;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 2rem;
+}
+
+.student-quiz-back:hover {
+    opacity: 0.9;
+}
+
+.student-quiz-view-history {
+    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 2rem;
+}
+
+.student-quiz-view-history:hover {
+    opacity: 0.9;
+}
+
+.student-quiz-history-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.student-quiz-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.student-quiz-history-table th,
+.student-quiz-history-table td {
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    text-align: left;
+}
+
+.student-quiz-history-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+}
+
+.student-quiz-progress-chart-container {
+    margin-bottom: 2rem;
+}
+
+.student-quiz-back-to-list {
+    background: #6b7280;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.student-quiz-back-to-list:hover {
+    opacity: 0.9;
+}
