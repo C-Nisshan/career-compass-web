@@ -58,13 +58,7 @@
                     <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#features">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#how-it-works">How It Works</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#community">Community</a>
+                    <a class="nav-link" href="{{route('community.forum') }}">Community</a>
                 </li>
                 @guest
                     <li class="nav-item">

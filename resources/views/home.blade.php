@@ -10,7 +10,7 @@
         <p class="typing-effect" id="typing"></p>
         <p>Discover your dream career with AI-powered insights tailored to your unique journey. Join 10K+ young explorers!</p>
         <div class="hero-buttons">
-            <a href="{{ route('home') }}" class="btn-primary">Begin Your Journey</a>
+            <a href="{{ route('register') }}" class="btn-primary">Begin Your Journey</a>
             <a href="#how-it-works" class="btn-secondary">Explore How</a>
         </div>
     </div>

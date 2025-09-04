@@ -1,0 +1,197 @@
+.community-forum-hero {
+    min-height: 80vh; /* Slightly shorter than home for forum focus */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+    background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; /* Forum-themed image */
+}
+
+.community-forum-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(31, 41, 55, 0.5);
+    z-index: 1;
+}
+
+.community-forum-hero-content {
+    max-width: 1000px;
+    color: white;
+    z-index: 2;
+    transform: translateY(0);
+    transition: transform 0.5s ease;
+}
+
+.community-forum-hero.parallax .community-forum-hero-content {
+    transform: translateY(calc(var(--scroll-y) * -0.3));
+}
+
+.community-forum-hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+.community-forum-hero p {
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+.community-forum-typing-effect {
+    font-size: 1.6rem;
+    color: #ffffff;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+}
+
+.community-forum-hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.community-forum-btn-primary, .community-forum-btn-secondary {
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.community-forum-btn-primary {
+    background: var(--accent);
+    color: white;
+}
+
+.community-forum-btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid #d1d5db;
+}
+
+.community-forum-btn-primary:hover, .community-forum-btn-secondary:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 30px var(--glow);
+}
+
+.community-forum-posts {
+    padding: 6rem 2rem;
+    background: #ffffff;
+}
+
+.community-forum-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.community-forum-section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.community-forum-posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto; /* Center the feed for chat-like feel */
+}
+
+.community-forum-post-card {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.community-forum-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--glow);
+}
+
+.community-forum-post-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.community-forum-user {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.community-forum-date {
+    font-style: italic;
+}
+
+.community-forum-post-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.community-forum-post-body {
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.community-forum-post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.community-forum-tag {
+    background: var(--accent-light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: white;
+}
+
+.community-forum-pinned {
+    border-left: 5px solid gold;
+    background: #fffbeb; /* Light highlight for pinned */
+}
+
+.community-forum-post-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+    transition: transform 0.5s ease;
+    z-index: 0;
+}
+
+.community-forum-post-card:hover::before {
+    transform: scale(1.5);
+}

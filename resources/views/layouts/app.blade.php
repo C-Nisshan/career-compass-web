@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/student/community-forum/create-post.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mentor/community-forum/browse-posts.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mentor/community-forum/create-post.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/community-forum.css') }}">
 
     @stack('styles')
 </head>
