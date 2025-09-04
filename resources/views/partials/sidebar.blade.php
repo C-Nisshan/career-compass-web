@@ -33,8 +33,7 @@
                     <a href="{{ route('student.success.stories') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('student.success.stories') ? 'bg-gray-700' : '' }}" aria-label="Success Stories">Success Stories</a>
                     
                     <div class="py-3 px-4 font-medium text-gray-300 uppercase tracking-wide">Community</div>
-                    <a href="{{ route('student.community.forum') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('student.community.forum', 'community.forum', 'forum.show') ? 'bg-gray-700' : '' }}" aria-label="Community Forum">View Forum</a>
-                    <a href="{{ route('forum.create') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('forum.create') ? 'bg-gray-700' : '' }}" aria-label="Create Forum Post">Create Post</a>
+                    <a href="{{ route('student.forum.browse-posts') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('student.forum.browse-posts') ? 'bg-gray-700' : '' }}" aria-label="Browse Forum Posts">Browse Forum Posts</a>
                     
                     <a href="{{ route('student.reports') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('student.reports') ? 'bg-gray-700' : '' }}" aria-label="Reports">Reports</a>
                     <a href="{{ route('student.settings') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('student.settings') ? 'bg-gray-700' : '' }}" aria-label="Settings">Settings</a>
