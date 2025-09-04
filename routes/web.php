@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\QuizManagementController;
 use App\Http\Controllers\Admin\ForumModerationController;
 use App\Http\Controllers\Admin\AnalyticsController as AdminAnalyticsController;
 use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
+use App\Http\Controllers\Admin\CommentModerationController;
+
 
 // Student
 use App\Http\Controllers\Student\StudentDashboardController;
@@ -72,6 +74,7 @@ Route::middleware(['jwt.cookie', 'role:admin'])->group(function () {
     Route::get('/admin/success-stories', [AdminSuccessStoryController::class, 'index'])->name('admin.success.stories');
     Route::get('/admin/quiz-questions', [QuizManagementController::class, 'index'])->name('admin.quiz.questions');
     Route::get('/admin/forum-moderation', [ForumModerationController::class, 'index'])->name('admin.forum.moderation');
+    Route::get('/admin/comment-moderation', [CommentModerationController::class, 'index'])->name('admin.comment-moderation');
     Route::get('/admin/analytics', [AdminAnalyticsController::class, 'index'])->name('admin.analytics');
     Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
 });

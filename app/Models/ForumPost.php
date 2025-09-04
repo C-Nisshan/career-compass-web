@@ -37,6 +37,6 @@ class ForumPost extends Model
 
     public function reports()
     {
-        return $this->hasMany(ForumReport::class, 'forum_post_id', 'uuid');
+        return $this->morphMany(ForumReport::class, 'reportable');
     }
 }
