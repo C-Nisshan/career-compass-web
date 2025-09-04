@@ -40,6 +40,7 @@ use App\Http\Controllers\Mentor\CommunityForumController as MentorCommunityForum
 use App\Http\Controllers\Mentor\AnalyticsController as MentorAnalyticsController;
 use App\Http\Controllers\Mentor\SettingsController as MentorSettingsController;
 use App\Http\Controllers\Mentor\MentorPendingController;
+use App\Http\Controllers\Mentor\MentorForumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,6 +113,9 @@ Route::middleware(['jwt.cookie', 'role:mentor'])->group(function () {
     Route::get('/mentor/analytics', [MentorAnalyticsController::class, 'index'])->name('mentor.analytics');
     Route::get('/mentor/settings', [MentorSettingsController::class, 'index'])->name('mentor.settings');
     Route::get('/mentor/pending', [MentorPendingController::class, 'index'])->name('mentor.settings');
+
+    Route::get('/mentor/community-forum/browse-posts', [MentorForumController::class, 'browsePosts'])->name('mentor.forum.browse-posts');
+    Route::get('/mentor/community-forum/create-post', [App\Http\Controllers\Mentor\MentorForumController::class, 'createPost'])->name('mentor.forum.create-post');
 });
 
 /*

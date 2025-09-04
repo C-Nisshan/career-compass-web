@@ -51,8 +51,8 @@
                         <a href="{{ route('mentor.profile') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.profile') ? 'bg-gray-700' : '' }}" aria-label="Profile">Profile</a>
                         
                         <div class="py-3 px-4 font-medium text-gray-300 uppercase tracking-wide">Community</div>
-                        <a href="{{ route('mentor.community.forum') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('mentor.community.forum', 'community.forum', 'forum.show') ? 'bg-gray-700' : '' }}" aria-label="Community Forum">View Forum</a>
-                        <a href="{{ route('forum.create') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('forum.create') ? 'bg-gray-700' : '' }}" aria-label="Create Forum Post">Create Post</a>
+                        <a href="{{ route('mentor.forum.browse-posts') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('mentor.forum.browse-posts') ? 'bg-gray-700' : '' }}" aria-label="Browse Forum Posts">Browse Forum Posts</a>
+                        <a href="{{ route('mentor.forum.create-post') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('mentor.forum.create-post') ? 'bg-gray-700' : '' }}" aria-label="Create Forum Posts">Create Post</a>
                         
                         <a href="{{ route('mentor.analytics') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.analytics') ? 'bg-gray-700' : '' }}" aria-label="Mentorship Analytics">Mentorship Analytics</a>
                         <a href="{{ route('mentor.settings') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.settings') ? 'bg-gray-700' : '' }}" aria-label="Settings">Settings</a>
