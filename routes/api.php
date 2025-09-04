@@ -44,6 +44,11 @@ Route::middleware('jwt.cookie')->group(function () {
     // Forum APIs for Students
     Route::middleware('role:student')->group(function () {
         Route::get('/student/forum-posts', [ForumController::class, 'getPosts'])->name('api.student.forum-posts');
+        Route::get('/student/forum-tags', [ForumController::class, 'getTags'])->name('api.student.forum-tags');
+        Route::post('/student/forum-posts', [ForumController::class, 'storePost'])->name('api.student.forum-posts.store');
+        Route::get('/student/forum-posts/{uuid}', [ForumController::class, 'getPost']);
+        Route::post('/student/forum-posts/{uuid}/comment', [ForumController::class, 'storeComment']);
+        Route::post('/student/forum-posts/{uuid}/vote', [ForumController::class, 'toggleVote']);
     });
 
     // Forum APIs for Mentors

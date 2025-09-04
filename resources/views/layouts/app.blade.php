@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/admin-forum-moderation.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin-comment-moderation.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/student/community-forum/browse-posts.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/student/community-forum/create-post.css') }}">
 
     @stack('styles')
 </head>
