@@ -66,16 +66,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#community">Community</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" data-bs-toggle="dropdown">
-                        Tools
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
-                        <li><a class="dropdown-item" href="{{ route('home') }}">Roadmap</a></li>
-                        <li><a class="dropdown-item" href="{{ route('about') }}">Quizzes</a></li>
-                        <li><a class="dropdown-item" href="{{ route('contact') }}">Reports</a></li>
-                    </ul>
-                </li>
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>

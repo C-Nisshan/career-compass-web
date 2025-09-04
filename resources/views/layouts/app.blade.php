@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/forum-create.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin-manage-users.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin-success-stories.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin-quiz-questions.css') }}">
 
     @stack('styles')
 </head>
