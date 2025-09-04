@@ -34,4 +34,9 @@ class ForumPost extends Model
     {
         return $this->hasMany(ForumComment::class, 'forum_post_id', 'uuid');
     }
+
+    public function reports()
+    {
+        return $this->hasMany(ForumReport::class, 'forum_post_id', 'uuid');
+    }
 }
