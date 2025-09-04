@@ -18,7 +18,7 @@
                     
                     <div class="py-3 px-4 font-medium text-gray-300 uppercase tracking-wide">Community</div>
                     <a href="{{ route('admin.forum.moderation') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('admin.forum.moderation') ? 'bg-gray-700' : '' }}" aria-label="Forum Moderation">Forum Moderation</a>
-                    <a href="{{ route('community.forum') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('community.forum', 'forum.show') ? 'bg-gray-700' : '' }}" aria-label="Community Forum">Community Forum</a>
+                    <a href="{{ route('admin.comment-moderation') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('admin.comment-moderation') ? 'bg-gray-700' : '' }}" aria-label="Comment Moderation">Comment Moderation</a>
                     
                     <a href="{{ route('admin.analytics') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('admin.analytics') ? 'bg-gray-700' : '' }}" aria-label="Analytics">Analytics</a>
                     <a href="{{ route('admin.settings') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('admin.settings') ? 'bg-gray-700' : '' }}" aria-label="Settings">Settings</a>

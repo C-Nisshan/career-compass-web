@@ -28,4 +28,9 @@ class ForumComment extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'uuid');
     }
+
+    public function reports()
+    {
+        return $this->morphMany(ForumReport::class, 'reportable');
+    }
 }

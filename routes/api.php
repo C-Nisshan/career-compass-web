@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\SuccessStoryController;
 use App\Http\Controllers\Admin\QuizManagementController;
 use App\Http\Controllers\Admin\ForumModerationController;
+use App\Http\Controllers\Admin\CommentModerationController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -80,6 +81,10 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::post('/admin/forum-posts/delete/{uuid}', [ForumModerationController::class, 'deletePost'])->name('api.admin.forum-posts.delete');
         Route::post('/admin/forum-reports/resolve/{uuid}', [ForumModerationController::class, 'resolveReport'])->name('api.admin.forum-reports.resolve');
         Route::post('/admin/forum-reports/dismiss/{uuid}', [ForumModerationController::class, 'dismissReport'])->name('api.admin.forum-reports.dismiss');
+
+        // Comment Moderation Routes
+        Route::get('/admin/forum-comments', [CommentModerationController::class, 'getComments'])->name('api.admin.forum-comments');
+        Route::post('/admin/forum-comments/hide/{uuid}', [CommentModerationController::class, 'hideComment'])->name('api.admin.forum-comments.hide');
     });
 });
 
