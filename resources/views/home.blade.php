@@ -24,7 +24,7 @@
                 <p>Users</p>
             </div>
             <div class="stat-item fade-in">
-                <h3 id="accuracy-rate">88%</h3>
+                <h3 id="accuracy-rate">80%</h3>
                 <p>Accuracy</p>
             </div>
             <div class="stat-item fade-in">

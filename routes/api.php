@@ -13,6 +13,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\CareerPredictionController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\SuccessStoryController;
+use App\Http\Controllers\Admin\QuizManagementController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -73,6 +74,13 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::post('/admin/success-stories', [SuccessStoryController::class, 'store'])->name('api.admin.success-stories.store');
         Route::put('/admin/success-stories/{uuid}', [SuccessStoryController::class, 'update'])->name('api.admin.success-stories.update');
         Route::delete('/admin/success-stories/{uuid}', [SuccessStoryController::class, 'destroy'])->name('api.admin.success-stories.destroy');
+
+        Route::get('/admin/quizzes', [QuizManagementController::class, 'getQuizzes'])->name('api.admin.quizzes');
+        Route::post('/admin/quizzes', [QuizManagementController::class, 'storeQuiz'])->name('api.admin.quizzes.store');
+        Route::get('/admin/quiz-questions', [QuizManagementController::class, 'getQuestions'])->name('api.admin.quiz-questions');
+        Route::post('/admin/quiz-questions', [QuizManagementController::class, 'storeQuestion'])->name('api.admin.quiz-questions.store');
+        Route::put('/admin/quiz-questions/{uuid}', [QuizManagementController::class, 'updateQuestion'])->name('api.admin.quiz-questions.update');
+        Route::delete('/admin/quiz-questions/{uuid}', [QuizManagementController::class, 'destroyQuestion'])->name('api.admin.quiz-questions.destroy');
     });
 });
 
