@@ -14,6 +14,7 @@ use App\Http\Controllers\CareerPredictionController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\SuccessStoryController;
 use App\Http\Controllers\Admin\QuizManagementController;
+use App\Http\Controllers\Admin\ForumModerationController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -58,15 +59,6 @@ Route::middleware('jwt.cookie')->group(function () {
 
     // Forum APIs for Admins
     Route::middleware('role:admin')->group(function () {
-        Route::get('/forum/comments', [ForumController::class, 'comments'])->name('api.forum.comments');
-        Route::put('/forum/{uuid}', [ForumController::class, 'update'])->name('api.forum.update');
-        Route::delete('/forum/{uuid}', [ForumController::class, 'destroy'])->name('api.forum.destroy');
-        Route::post('/forum/{uuid}/pin', [ForumController::class, 'pin'])->name('api.forum.pin');
-        Route::post('/forum/{uuid}/unpin', [ForumController::class, 'unpin'])->name('api.forum.unpin');
-        Route::post('/forum/{uuid}/moderate', [ForumController::class, 'moderatePost'])->name('api.forum.moderate');
-        Route::post('/forum/comments/{uuid}/moderate', [ForumController::class, 'moderateComment'])->name('api.forum.comments.moderate');
-        Route::post('/forum/{postUuid}/comments', [ForumController::class, 'storeComment'])->name('api.forum.comments.store');
-
         Route::get('/admin/users', [UserManagementController::class, 'getUsers'])->name('api.admin.users');
         Route::delete('/admin/users/{uuid}', [UserManagementController::class, 'deleteUser'])->name('api.admin.users.delete');
 
@@ -81,11 +73,14 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::post('/admin/quiz-questions', [QuizManagementController::class, 'storeQuestion'])->name('api.admin.quiz-questions.store');
         Route::put('/admin/quiz-questions/{uuid}', [QuizManagementController::class, 'updateQuestion'])->name('api.admin.quiz-questions.update');
         Route::delete('/admin/quiz-questions/{uuid}', [QuizManagementController::class, 'destroyQuestion'])->name('api.admin.quiz-questions.destroy');
+
+        // Forum Moderation Routes
+        Route::get('/admin/forum-posts', [ForumModerationController::class, 'getPosts'])->name('api.admin.forum-posts');
+        Route::post('/admin/forum-posts/pin/{uuid}', [ForumModerationController::class, 'pinPost'])->name('api.admin.forum-posts.pin');
+        Route::post('/admin/forum-posts/delete/{uuid}', [ForumModerationController::class, 'deletePost'])->name('api.admin.forum-posts.delete');
+        Route::post('/admin/forum-reports/resolve/{uuid}', [ForumModerationController::class, 'resolveReport'])->name('api.admin.forum-reports.resolve');
+        Route::post('/admin/forum-reports/dismiss/{uuid}', [ForumModerationController::class, 'dismissReport'])->name('api.admin.forum-reports.dismiss');
     });
 });
-
-// Public Forum routes
-Route::get('/forum', [ForumController::class, 'index'])->name('api.forum.index');
-Route::get('/forum/{uuid}', [ForumController::class, 'show'])->name('api.forum.show');
 
 Route::post('/predict-career', [CareerPredictionController::class, 'predict'])->name('api.predict-career');

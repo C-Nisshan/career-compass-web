@@ -22,16 +22,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/about.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/forum.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/register.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mentor-approvals.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mentor-pending.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/forum-moderation.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/forum-create.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin-manage-users.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin-success-stories.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin-quiz-questions.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin-forum-moderation.css') }}">
 
     @stack('styles')
 </head>
