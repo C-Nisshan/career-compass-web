@@ -25,6 +25,7 @@ use App\Http\Controllers\Mentor\MentorProfileController;
 use App\Http\Controllers\Mentor\MentorSettingsController;
 use App\Http\Controllers\Student\StudentSettingsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Student\StudentDashboardController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -72,6 +73,10 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::post('/student/profile', [StudentProfileController::class, 'updateProfile'])->name('student.profile.update');
 
         Route::post('/student/settings/change-password', [StudentSettingsController::class, 'changePassword'])->name('student.settings.change-password');
+
+        Route::get('/student/recommendations', [StudentDashboardController::class, 'getRecentRecommendations'])->name('api.student.recommendations');
+        Route::get('/student/quiz-scores', [StudentDashboardController::class, 'getQuizScores'])->name('api.student.quiz_scores');
+        Route::get('/student/forum-activity', [StudentDashboardController::class, 'getForumActivity'])->name('api.student.forum_activity');
     });
 
     // Forum APIs for Mentors
