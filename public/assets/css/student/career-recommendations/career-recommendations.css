@@ -46,7 +46,9 @@
     background: #22c55e; /* From --success in global.css */
     border-radius: 15px 15px 0 0;
     padding: 1.5rem;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .student-career-results-section .card-body {
@@ -69,6 +71,28 @@
 .student-career-results-section .card-body {
     flex-grow: 1;
     font-size: 0.95rem;
+}
+
+/* Download Button */
+#studentCareerDownloadBtn {
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+#studentCareerDownloadBtn:hover {
+    background: #16a34a; /* Darker shade of --success */
+    border-color: #16a34a;
+    transform: scale(1.05);
+}
+
+#studentCareerDownloadBtn i {
+    margin-right: 5px;
 }
 
 .student-career-try-again-btn {
@@ -116,6 +140,29 @@
     box-shadow: none;
 }
 
+/* PDF Template Styling */
+.pdf-content {
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    color: #2c2c54;
+}
+
+.pdf-content .card {
+    margin-bottom: 15px;
+    border: 1px solid #e5e7eb;
+}
+
+.pdf-content .card-header {
+    background: #f3f4f6;
+    font-size: 1.1rem;
+    padding: 10px;
+}
+
+.pdf-content .card-body {
+    padding: 15px;
+    font-size: 0.95rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .career-recommendations-title {
@@ -130,5 +177,10 @@
 
     .student-career-results-section .card-body {
         padding: 1rem;
+    }
+
+    #studentCareerDownloadBtn {
+        font-size: 0.8rem;
+        padding: 4px 8px;
     }
 }

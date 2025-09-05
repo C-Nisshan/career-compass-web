@@ -8,6 +8,8 @@ use App\Models\CareerPrediction;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class CareerPredictionController extends Controller
 {
@@ -63,5 +65,27 @@ class CareerPredictionController extends Controller
         ]);
 
         return response()->json($apiResponse, 200);
+    }
+
+    public function downloadPdf(Request $request)
+    {
+        $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($request->input('content'));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return response()->streamDownload(function () use ($dompdf) {
+            echo $dompdf->output();
+        }, 'career-recommendations.pdf', [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }

@@ -21,8 +21,11 @@
         <!-- Results Section -->
         <div class="student-career-results-section" id="studentCareerResultsSection" style="display: none;">
             <div class="card shadow-sm border-0">
-                <div class="card-header bg-success text-white text-center">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">Your Career Recommendations</h5>
+                    <button id="studentCareerDownloadBtn" class="btn btn-outline-light btn-sm" title="Download as PDF">
+                        <i class="fas fa-download"></i> Download PDF
+                    </button>
                 </div>
                 <div class="card-body">
                     <div id="studentCareerResponseArea" class="d-flex flex-column"></div>
@@ -31,6 +34,14 @@
                     <button type="button" class="btn student-career-try-again-btn">Try Again</button>
                     <button type="button" class="btn student-career-close-btn">Close</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Hidden PDF Template -->
+        <div id="pdfTemplate" style="display: none;">
+            <div class="pdf-content">
+                <h1 style="text-align: center; color: #2c2c54;">Career Recommendations</h1>
+                <div id="pdfResponseArea"></div>
             </div>
         </div>
     </div>
