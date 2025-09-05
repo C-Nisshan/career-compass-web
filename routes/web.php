@@ -32,6 +32,7 @@ use App\Http\Controllers\Student\CommunityForumController as StudentCommunityFor
 use App\Http\Controllers\Student\ReportController;
 use App\Http\Controllers\Student\StudentSettingsController as StudentSettingsController;
 use App\Http\Controllers\Student\ForumController;
+use App\Http\Controllers\Student\StudentFeedbackController;
 
 // Mentor
 use App\Http\Controllers\Mentor\MentorDashboardController;
@@ -99,6 +100,7 @@ Route::middleware(['jwt.cookie', 'role:student'])->group(function () {
     Route::get('/student/community-forum/browse-posts', [ForumController::class, 'browsePosts'])->name('student.forum.browse-posts');
     Route::get('/student/community-forum/create-post', [ForumController::class, 'createPost'])->name('student.forum.create-post');
     Route::get('/student/community-forum/posts/{uuid}', [ForumController::class, 'showPost'])->name('student.forum.show-post');
+    Route::get('/student/feedback', [StudentFeedbackController::class, 'index'])->name('student.feedback');
 });
 
 /*

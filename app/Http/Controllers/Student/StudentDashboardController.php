@@ -24,7 +24,7 @@ class StudentDashboardController extends Controller
         $userId = Auth::user()->uuid;
         $recommendations = CareerPrediction::where('user_id', $userId)
             ->orderBy('predicted_at', 'desc')
-            ->take(2)
+            ->take(1)
             ->get(['uuid', 'recommendations', 'predicted_at']);
 
         return response()->json([
