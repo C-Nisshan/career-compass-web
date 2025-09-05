@@ -21,6 +21,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\Student\SkillQuizController;
 use App\Http\Controllers\Student\StudentSuccessStoryController;
 use App\Http\Controllers\Student\StudentProfileController;
+use App\Http\Controllers\Mentor\MentorProfileController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -75,6 +76,9 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::post('/mentor/forum-posts/{uuid}/comment', [App\Http\Controllers\Mentor\MentorForumController::class, 'storeComment']);
         Route::get('/mentor/forum-tags', [App\Http\Controllers\Mentor\MentorForumController::class, 'getTags']);
         Route::post('/mentor/forum-posts', [App\Http\Controllers\Mentor\MentorForumController::class, 'storePost']);
+
+        Route::get('/mentor/profile', [MentorProfileController::class, 'getProfile'])->name('mentor.profile.get');
+        Route::post('/mentor/profile', [MentorProfileController::class, 'updateProfile'])->name('mentor.profile.update');
     });
 
     // Forum APIs for Admins
