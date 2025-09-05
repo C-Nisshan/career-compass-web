@@ -35,7 +35,7 @@ use App\Http\Controllers\Student\ForumController;
 
 // Mentor
 use App\Http\Controllers\Mentor\MentorDashboardController;
-use App\Http\Controllers\Mentor\ProfileController as MentorProfileController;
+use App\Http\Controllers\Mentor\MentorProfileController as MentorProfileController;
 use App\Http\Controllers\Mentor\CommunityForumController as MentorCommunityForumController;
 use App\Http\Controllers\Mentor\AnalyticsController as MentorAnalyticsController;
 use App\Http\Controllers\Mentor\SettingsController as MentorSettingsController;
