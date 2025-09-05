@@ -27,7 +27,7 @@ use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\Student\ProfileController as StudentProfileController;
 use App\Http\Controllers\Student\CareerRecommendationController;
 use App\Http\Controllers\Student\SkillQuizController;
-use App\Http\Controllers\Student\SuccessStoryController as StudentSuccessStoryController;
+use App\Http\Controllers\Student\StudentSuccessStoryController as StudentSuccessStoryController;
 use App\Http\Controllers\Student\CommunityForumController as StudentCommunityForumController;
 use App\Http\Controllers\Student\ReportController;
 use App\Http\Controllers\Student\SettingsController as StudentSettingsController;
