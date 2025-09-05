@@ -24,6 +24,7 @@ use App\Http\Controllers\Student\StudentProfileController;
 use App\Http\Controllers\Mentor\MentorProfileController;
 use App\Http\Controllers\Mentor\MentorSettingsController;
 use App\Http\Controllers\Student\StudentSettingsController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -114,6 +115,8 @@ Route::middleware('jwt.cookie')->group(function () {
         // Comment Moderation Routes
         Route::get('/admin/forum-comments', [CommentModerationController::class, 'getComments'])->name('api.admin.forum-comments');
         Route::post('/admin/forum-comments/hide/{uuid}', [CommentModerationController::class, 'hideComment'])->name('api.admin.forum-comments.hide');
+
+        Route::get('/admin/stats', [AdminDashboardController::class, 'stats'])->name('api.admin.stats');
     });
 });
 

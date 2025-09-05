@@ -69,6 +69,7 @@
     <script src="{{ asset('assets/js/header.js') }}"></script>
     <script src="{{ asset('assets/js/home.js') }}"></script>
     <script src="{{ asset('assets/js/footer.js') }}"></script>
+    <script src="{{ asset('assets/js/admin/admin_dashboard.js') }}"></script>
     @stack('scripts')
 </body>
 </html>
