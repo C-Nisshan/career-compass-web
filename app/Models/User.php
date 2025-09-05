@@ -70,4 +70,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(MentorProfile::class, 'user_id', 'uuid');
     }
+
+    public function feedbackGiven()
+    {
+        return $this->hasMany(MentorFeedback::class, 'student_id', 'uuid');
+    }
+
+    public function feedbackReceived()
+    {
+        return $this->hasMany(MentorFeedback::class, 'mentor_id', 'uuid');
+    }
 }

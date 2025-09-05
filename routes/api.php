@@ -26,6 +26,8 @@ use App\Http\Controllers\Mentor\MentorSettingsController;
 use App\Http\Controllers\Student\StudentSettingsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Student\StudentDashboardController;
+use App\Http\Controllers\Mentor\MentorDashboardController;
+use App\Http\Controllers\Student\StudentFeedbackController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -77,6 +79,12 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::get('/student/recommendations', [StudentDashboardController::class, 'getRecentRecommendations'])->name('api.student.recommendations');
         Route::get('/student/quiz-scores', [StudentDashboardController::class, 'getQuizScores'])->name('api.student.quiz_scores');
         Route::get('/student/forum-activity', [StudentDashboardController::class, 'getForumActivity'])->name('api.student.forum_activity');
+
+        Route::get('/student/feedback', [StudentFeedbackController::class, 'getFeedback'])->name('api.student.feedback');
+        Route::post('/student/feedback', [StudentFeedbackController::class, 'store'])->name('api.student.feedback.store');
+        Route::put('/student/feedback/{uuid}', [StudentFeedbackController::class, 'update'])->name('api.student.feedback.update');
+        Route::delete('/student/feedback/{uuid}', [StudentFeedbackController::class, 'destroy'])->name('api.student.feedback.destroy');
+        Route::get('/student/mentors', [StudentFeedbackController::class, 'getMentors'])->name('api.student.mentors');
     });
 
     // Forum APIs for Mentors
@@ -91,6 +99,11 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::post('/mentor/profile', [MentorProfileController::class, 'updateProfile'])->name('mentor.profile.update');
 
         Route::post('/mentor/settings/change-password', [MentorSettingsController::class, 'changePassword'])->name('mentor.settings.change-password');
+
+        Route::get('/mentor/forum-contributions', [MentorDashboardController::class, 'getForumContributions'])->name('api.mentor.forum_contributions');
+        Route::get('/mentor/student-engagement', [MentorDashboardController::class, 'getStudentEngagement'])->name('api.mentor.student_engagement');
+        Route::get('/mentor/success-stories', [MentorDashboardController::class, 'getSuccessStories'])->name('api.mentor.success_stories');
+        Route::get('/mentor/feedback', [MentorDashboardController::class, 'getFeedback'])->name('api.mentor.feedback');
     });
 
     // Forum APIs for Admins

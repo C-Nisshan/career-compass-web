@@ -35,8 +35,8 @@
                     <div class="py-3 px-4 font-medium text-gray-300 uppercase tracking-wide">Community</div>
                     <a href="{{ route('student.forum.browse-posts') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('student.forum.browse-posts') ? 'bg-gray-700' : '' }}" aria-label="Browse Forum Posts">Browse Forum Posts</a>
                     <a href="{{ route('student.forum.create-post') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('student.forum.create-post') ? 'bg-gray-700' : '' }}" aria-label="Create Forum Posts">Create Post</a>
-                    
-                    <a href="{{ route('student.reports') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('student.reports') ? 'bg-gray-700' : '' }}" aria-label="Reports">Reports</a>
+
+                    <a href="{{ route('student.feedback') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('student.feedback') ? 'bg-gray-700' : '' }}" aria-label="Reports">Mentors</a>
                     <a href="{{ route('student.settings') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('student.settings') ? 'bg-gray-700' : '' }}" aria-label="Settings">Settings</a>
 
                 @elseif(auth()->user()->role->value === \App\Enums\RoleEnum::MENTOR->value)
