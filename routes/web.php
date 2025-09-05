@@ -30,7 +30,7 @@ use App\Http\Controllers\Student\SkillQuizController;
 use App\Http\Controllers\Student\StudentSuccessStoryController as StudentSuccessStoryController;
 use App\Http\Controllers\Student\CommunityForumController as StudentCommunityForumController;
 use App\Http\Controllers\Student\ReportController;
-use App\Http\Controllers\Student\SettingsController as StudentSettingsController;
+use App\Http\Controllers\Student\StudentSettingsController as StudentSettingsController;
 use App\Http\Controllers\Student\ForumController;
 
 // Mentor
@@ -38,7 +38,7 @@ use App\Http\Controllers\Mentor\MentorDashboardController;
 use App\Http\Controllers\Mentor\MentorProfileController as MentorProfileController;
 use App\Http\Controllers\Mentor\CommunityForumController as MentorCommunityForumController;
 use App\Http\Controllers\Mentor\AnalyticsController as MentorAnalyticsController;
-use App\Http\Controllers\Mentor\SettingsController as MentorSettingsController;
+use App\Http\Controllers\Mentor\MentorSettingsController as MentorSettingsController;
 use App\Http\Controllers\Mentor\MentorPendingController;
 use App\Http\Controllers\Mentor\MentorForumController;
 

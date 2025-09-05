@@ -40,23 +40,16 @@
                     <a href="{{ route('student.settings') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('student.settings') ? 'bg-gray-700' : '' }}" aria-label="Settings">Settings</a>
 
                 @elseif(auth()->user()->role->value === \App\Enums\RoleEnum::MENTOR->value)
-                    @if(auth()->user()->status === 'pending')
-                        <!-- Pending Mentor Sidebar -->
-                        <div class="py-3 px-4 text-yellow-300">Your mentor application is pending approval.</div>
-                        <a href="{{ route('mentor.profile') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.profile') ? 'bg-gray-700' : '' }}" aria-label="Profile">Profile</a>
-                        <a href="{{ route('mentor.settings') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.settings') ? 'bg-gray-700' : '' }}" aria-label="Settings">Settings</a>
-                    @else
-                        <!-- Active Mentor Sidebar -->
-                        <a href="{{ route('mentor.dashboard') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.dashboard') ? 'bg-gray-700' : '' }}" aria-label="Mentor Dashboard">Dashboard</a>
-                        <a href="{{ route('mentor.profile') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.profile') ? 'bg-gray-700' : '' }}" aria-label="Profile">Profile</a>
+                    <!-- Active Mentor Sidebar -->
+                    <a href="{{ route('mentor.dashboard') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.dashboard') ? 'bg-gray-700' : '' }}" aria-label="Mentor Dashboard">Dashboard</a>
+                    <a href="{{ route('mentor.profile') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.profile') ? 'bg-gray-700' : '' }}" aria-label="Profile">Profile</a>
                         
-                        <div class="py-3 px-4 font-medium text-gray-300 uppercase tracking-wide">Community</div>
-                        <a href="{{ route('mentor.forum.browse-posts') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('mentor.forum.browse-posts') ? 'bg-gray-700' : '' }}" aria-label="Browse Forum Posts">Browse Forum Posts</a>
-                        <a href="{{ route('mentor.forum.create-post') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('mentor.forum.create-post') ? 'bg-gray-700' : '' }}" aria-label="Create Forum Posts">Create Post</a>
+                    <div class="py-3 px-4 font-medium text-gray-300 uppercase tracking-wide">Community</div>
+                    <a href="{{ route('mentor.forum.browse-posts') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('mentor.forum.browse-posts') ? 'bg-gray-700' : '' }}" aria-label="Browse Forum Posts">Browse Forum Posts</a>
+                    <a href="{{ route('mentor.forum.create-post') }}" class="block py-2.5 px-6 rounded hover:bg-gray-700 {{ Route::is('mentor.forum.create-post') ? 'bg-gray-700' : '' }}" aria-label="Create Forum Posts">Create Post</a>
                         
-                        <a href="{{ route('mentor.analytics') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.analytics') ? 'bg-gray-700' : '' }}" aria-label="Mentorship Analytics">Mentorship Analytics</a>
-                        <a href="{{ route('mentor.settings') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.settings') ? 'bg-gray-700' : '' }}" aria-label="Settings">Settings</a>
-                    @endif
+                    <a href="{{ route('mentor.analytics') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.analytics') ? 'bg-gray-700' : '' }}" aria-label="Mentorship Analytics">Mentorship Analytics</a>
+                    <a href="{{ route('mentor.settings') }}" class="block py-2.5 px-4 rounded hover:bg-gray-700 {{ Route::is('mentor.settings') ? 'bg-gray-700' : '' }}" aria-label="Settings">Settings</a>
                 @endif
 
                 <!-- Logout for all authenticated users -->

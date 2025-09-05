@@ -22,6 +22,8 @@ use App\Http\Controllers\Student\SkillQuizController;
 use App\Http\Controllers\Student\StudentSuccessStoryController;
 use App\Http\Controllers\Student\StudentProfileController;
 use App\Http\Controllers\Mentor\MentorProfileController;
+use App\Http\Controllers\Mentor\MentorSettingsController;
+use App\Http\Controllers\Student\StudentSettingsController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -67,6 +69,8 @@ Route::middleware('jwt.cookie')->group(function () {
         Route::get('/student/success-stories', [StudentSuccessStoryController::class, 'getStories'])->name('student.success-stories.get');
         Route::get('/student/profile', [StudentProfileController::class, 'getProfile'])->name('student.profile.get');
         Route::post('/student/profile', [StudentProfileController::class, 'updateProfile'])->name('student.profile.update');
+
+        Route::post('/student/settings/change-password', [StudentSettingsController::class, 'changePassword'])->name('student.settings.change-password');
     });
 
     // Forum APIs for Mentors
@@ -79,6 +83,8 @@ Route::middleware('jwt.cookie')->group(function () {
 
         Route::get('/mentor/profile', [MentorProfileController::class, 'getProfile'])->name('mentor.profile.get');
         Route::post('/mentor/profile', [MentorProfileController::class, 'updateProfile'])->name('mentor.profile.update');
+
+        Route::post('/mentor/settings/change-password', [MentorSettingsController::class, 'changePassword'])->name('mentor.settings.change-password');
     });
 
     // Forum APIs for Admins
