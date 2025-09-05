@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\CommentModerationController;
 
 // Student
 use App\Http\Controllers\Student\StudentDashboardController;
-use App\Http\Controllers\Student\ProfileController as StudentProfileController;
+use App\Http\Controllers\Student\StudentProfileController as StudentProfileController;
 use App\Http\Controllers\Student\CareerRecommendationController;
 use App\Http\Controllers\Student\SkillQuizController;
 use App\Http\Controllers\Student\StudentSuccessStoryController as StudentSuccessStoryController;

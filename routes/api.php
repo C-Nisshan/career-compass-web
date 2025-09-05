@@ -20,7 +20,7 @@ use App\Http\Controllers\Mentor\MentorForumController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\Student\SkillQuizController;
 use App\Http\Controllers\Student\StudentSuccessStoryController;
-
+use App\Http\Controllers\Student\StudentProfileController;
 
 // Public API routes
 Route::post('/auth/login', [LoginController::class, 'login'])->name('api.login');
@@ -64,6 +64,8 @@ Route::middleware('jwt.cookie')->group(function () {
 
         Route::post('/download-career-pdf', [CareerPredictionController::class, 'downloadPdf']);
         Route::get('/student/success-stories', [StudentSuccessStoryController::class, 'getStories'])->name('student.success-stories.get');
+        Route::get('/student/profile', [StudentProfileController::class, 'getProfile'])->name('student.profile.get');
+        Route::post('/student/profile', [StudentProfileController::class, 'updateProfile'])->name('student.profile.update');
     });
 
     // Forum APIs for Mentors
