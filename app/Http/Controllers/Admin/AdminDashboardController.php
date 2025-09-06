@@ -27,13 +27,19 @@ class AdminDashboardController extends Controller
             'total_success_stories' => SuccessStory::count(),
             'total_quiz_results' => QuizResult::count(),
             'recent_predictions' => CareerPrediction::with('user')
-                ->orderBy('predicted_at', 'desc')
-                ->take(5)
-                ->get()
-                ->map(fn($prediction) => [
-                    'user' => $prediction->user->first_name . ' ' . ($prediction->user->last_name ?? ''),
-                    'predicted_at' => $prediction->predicted_at->format('d M Y H:i'),
-                ]),
+                    ->orderBy('predicted_at', 'desc')
+                    ->take(5)
+                    ->get()
+                    ->map(function ($prediction) {
+                        return [
+                            'user' => $prediction->user
+                                ? ($prediction->user->first_name . ' ' . ($prediction->user->last_name ?? ''))
+                                : 'Guest',
+                            'predicted_at' => $prediction->predicted_at
+                                ? $prediction->predicted_at->format('d M Y H:i')
+                                : 'N/A',
+                        ];
+                    }),
             'recent_posts' => ForumPost::with('user')
                 ->where('status', 'active')
                 ->orderBy('created_at', 'desc')

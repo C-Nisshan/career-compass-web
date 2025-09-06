@@ -38,32 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
         return response.json();
     })
     .then(data => {
-        // Remove loading state
         Object.values(statsElements).forEach(element => {
             if (element) element.classList.remove('admin-dashboard-loading');
         });
 
-        // Update stats
-        statsElements.totalUsers.textContent = data.total_users || '0';
-        statsElements.totalMentors.textContent = data.total_mentors || '0';
-        statsElements.activeForumPosts.textContent = data.active_forum_posts || '0';
-        statsElements.totalPredictions.textContent = data.total_predictions || '0';
-        statsElements.totalSuccessStories.textContent = data.total_success_stories || '0';
-        statsElements.totalQuizResults.textContent = data.total_quiz_results || '0';
+        // Safely update stats with fallback values
+        statsElements.totalUsers.textContent = data.total_users ?? '0';
+        statsElements.totalMentors.textContent = data.total_mentors ?? '0';
+        statsElements.activeForumPosts.textContent = data.active_forum_posts ?? '0';
+        statsElements.totalPredictions.textContent = data.total_predictions ?? '0';
+        statsElements.totalSuccessStories.textContent = data.total_success_stories ?? '0';
+        statsElements.totalQuizResults.textContent = data.total_quiz_results ?? '0';
 
-        // Update recent predictions
         statsElements.recentPredictions.innerHTML = data.recent_predictions?.length
             ? data.recent_predictions.map(p => `
                 <div class="flex items-center gap-4 admin-dashboard-border-b admin-dashboard-pb-2">
                     <div class="flex-1">
-                        <p class="admin-dashboard-text-sm admin-dashboard-font-medium admin-dashboard-text-gray-700">${p.user || 'Unknown'}</p>
+                        <p class="admin-dashboard-text-sm admin-dashboard-font-medium admin-dashboard-text-gray-700">${p.user || 'Guest'}</p>
                         <p class="admin-dashboard-text-sm admin-dashboard-text-gray-500">Predicted at: ${p.predicted_at || 'N/A'}</p>
                     </div>
                 </div>
             `).join('')
             : '<p class="admin-dashboard-text-gray-500">No recent predictions.</p>';
 
-        // Update recent posts
         statsElements.recentPosts.innerHTML = data.recent_posts?.length
             ? data.recent_posts.map(p => `
                 <div class="flex items-center gap-4 admin-dashboard-border-b admin-dashboard-pb-2">
@@ -84,8 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         if (errorMessage) {
-            errorMessage.textContent = 'Failed to load dashboard data. Please try again.';
-            errorMessage.classList.remove('text-danger');
+            errorMessage.textContent = 'Failed to load dashboard data: ' + error.message;
             errorMessage.classList.add('admin-dashboard-text-red-500');
         }
     });
