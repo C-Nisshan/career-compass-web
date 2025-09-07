@@ -14,7 +14,6 @@ class JwtFromCookieMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         try {
-            // Log all cookies and headers for debugging
             Log::info('Cookies received in middleware', [
                 'cookies' => $request->cookies->all(),
                 'cookie_token' => $request->cookie('token'),
@@ -23,14 +22,11 @@ class JwtFromCookieMiddleware
                 'request_method' => $request->method(),
             ]);
 
-            // Try to retrieve the token from the cookie
             $token = $request->cookie('token');
 
-            // Fallback: Extract token from raw Cookie header if $request->cookie('token') is null
             if (!$token) {
                 $cookieHeader = $request->header('Cookie', '');
                 if ($cookieHeader) {
-                    // Parse the Cookie header
                     $cookies = array_reduce(explode('; ', $cookieHeader), function ($carry, $cookie) {
                         [$name, $value] = explode('=', $cookie, 2) + [null, null];
                         $carry[$name] = $value;
@@ -52,20 +48,16 @@ class JwtFromCookieMiddleware
                     'raw_cookie_header' => $request->header('Cookie', 'none'),
                     'request_url' => $request->fullUrl(),
                 ]);
-                //return response()->json(['error' => 'Authentication token not found'], 401);
                 return redirect()->route('login');
             }
 
-            // Log the token for debugging (partial for security)
             Log::info('Token retrieved', [
                 'token_prefix' => substr($token, 0, 10) . '...',
                 'token_length' => strlen($token),
             ]);
 
-            // Set the token for JWTAuth
             JWTAuth::setToken($token);
 
-            // Authenticate the token
             $user = JWTAuth::authenticate();
 
             if (!$user) {
@@ -75,7 +67,6 @@ class JwtFromCookieMiddleware
                 return response()->json(['error' => 'Invalid token'], 401);
             }
 
-            // Verify token version
             $payload = JWTAuth::getPayload();
             Log::info('Payload Token version: ' . $payload->get('token_version'));
             Log::info('DB Token version: ' . $user->token_version);
@@ -88,8 +79,8 @@ class JwtFromCookieMiddleware
                 return response()->json(['error' => 'Token has been invalidated'], 401);
             }
 
-            // Set the authenticated user for the request
-            auth()->setUser($user);
+            // Set the authenticated user for the 'api' guard
+            auth('api')->setUser($user);
 
             return $next($request);
         } catch (JWTException $e) {

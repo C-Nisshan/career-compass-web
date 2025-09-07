@@ -1,0 +1,186 @@
+/* h1 Styling */
+.career-recommendations-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 2rem 0;
+    background: var(--primary);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Static Input Section */
+.student-career-input-section {
+    max-width: 700px;
+    margin: 2rem auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.student-career-input-section .card-header {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); /* From --primary in global.css */
+    border-radius: 15px 15px 0 0;
+    padding: 1.5rem;
+}
+
+.student-career-input-section .card-body {
+    padding: 2rem;
+}
+
+.student-career-input-section .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* Results Section */
+.student-career-results-section {
+    max-width: 900px;
+    margin: 2rem auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.student-career-results-section .card-header {
+    background: #22c55e; /* From --success in global.css */
+    border-radius: 15px 15px 0 0;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.student-career-results-section .card-body {
+    padding: 2rem;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.student-career-results-section .card {
+    transition: transform 0.2s;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.student-career-results-section .card:hover {
+    transform: translateY(-5px);
+}
+
+.student-career-results-section .card-body {
+    flex-grow: 1;
+    font-size: 0.95rem;
+}
+
+/* Download Button */
+#studentCareerDownloadBtn {
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+#studentCareerDownloadBtn:hover {
+    background: #16a34a; /* Darker shade of --success */
+    border-color: #16a34a;
+    transform: scale(1.05);
+}
+
+#studentCareerDownloadBtn i {
+    margin-right: 5px;
+}
+
+.student-career-try-again-btn {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); /* From --primary in global.css */
+    color: white;
+    border-radius: 8px;
+    padding: 8px 20px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.student-career-try-again-btn:hover {
+    background: #6b46c1; /* Darker shade of --primary */
+    transform: scale(1.05);
+}
+
+.student-career-close-btn {
+    background: #22c55e; /* From --success in global.css */
+    color: white;
+    border-radius: 8px;
+    padding: 8px 20px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.student-career-close-btn:hover {
+    background: #16a34a; /* Darker shade of --success */
+    transform: scale(1.05);
+}
+
+#studentCareerSubmitBtn {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); /* From --primary in global.css */
+    color: white;
+    border-radius: 24px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+#studentCareerSubmitBtn:hover {
+    background: #6b46c1; /* Darker shade of --primary */
+    transform: scale(1.03);
+}
+
+#studentCareerSubmitBtn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* PDF Template Styling */
+.pdf-content {
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    color: #2c2c54;
+}
+
+.pdf-content .card {
+    margin-bottom: 15px;
+    border: 1px solid #e5e7eb;
+}
+
+.pdf-content .card-header {
+    background: #f3f4f6;
+    font-size: 1.1rem;
+    padding: 10px;
+}
+
+.pdf-content .card-body {
+    padding: 15px;
+    font-size: 0.95rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .career-recommendations-title {
+        font-size: 2rem;
+    }
+
+    .student-career-input-section,
+    .student-career-results-section {
+        max-width: 100%;
+        margin: 1rem;
+    }
+
+    .student-career-results-section .card-body {
+        padding: 1rem;
+    }
+
+    #studentCareerDownloadBtn {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+}

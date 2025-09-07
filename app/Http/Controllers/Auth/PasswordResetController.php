@@ -48,7 +48,7 @@ class PasswordResetController extends Controller
             // Send OTP email
             Mail::raw("Your OTP for password reset is: $otp\nValid for 10 minutes.", function ($message) use ($request) {
                 $message->to($request->email)
-                        ->subject('Room Rental - Password Reset OTP');
+                        ->subject('Career Compass - Password Reset OTP');
             });
 
             Log::info('OTP sent successfully', ['email' => $request->email, 'otp' => $otp, 'uuid' => $otpRecord->uuid]);

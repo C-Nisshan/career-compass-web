@@ -4,7 +4,7 @@
     width: 100%;
     background: linear-gradient(135deg, rgba(20, 30, 48, 0.95), rgba(36, 59, 85, 0.95));
     backdrop-filter: blur(20px);
-    z-index: 1000;
+    z-index: 1000; /* Above sidebar and content */
     padding: 1rem 0;
     transition: all 0.3s ease;
 }
@@ -16,65 +16,70 @@
 
 .navbar-brand.compass-logo {
     position: relative;
-    width: 240px;
-    height: 148.2px;
+    width: 194px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .navbar-brand.compass-logo:hover {
-    transform: scale(1.1) rotate(5deg);
-    filter: brightness(1.3) drop-shadow(0 0 15px rgba(212, 175, 55, 0.7));
+    transform: scale(1.05);
+    filter: brightness(1.2) drop-shadow(0 0 12px rgba(135, 206, 235, 0.7)); /* Adjusted to celestial blue glow */
 }
 
 .compass-body {
     position: relative;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle at 25% 25%, #ffd700, #b8860b, #6b4e31);
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 30%, #e6e6e6, #c0c0c0 70%); /* Silver gradient */
     border-radius: 50%;
     box-shadow: 
-        0 0 30px rgba(255, 215, 0, 0.6),
-        inset 0 0 20px rgba(0, 0, 0, 0.4),
-        0 8px 30px rgba(0, 0, 0, 0.5);
-    border: 4px solid #b8860b;
-    animation: mysticalPulse 3.5s ease-in-out infinite;
+        0 0 20px rgba(135, 206, 235, 0.6), /* Blue glow */
+        inset 0 0 14px rgba(0, 0, 0, 0.3);
+    border: 3px solid #c0c0c0; /* Silver border */
+    animation: mysticalPulse 2.5s ease-in-out infinite;
+    z-index: 1;
 }
 
 .compass-rim {
     position: absolute;
-    top: -8px;
-    left: -8px;
-    width: 136px;
-    height: 136px;
+    top: -6px;
+    left: -6px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
-    background: conic-gradient(from 0deg, #b8860b, #ffd700, #f4a261, #b8860b);
-    animation: slowRotate 25s linear infinite;
+    background: conic-gradient(from 0deg, #c0c0c0, #e6e6e6, #87ceeb, #c0c0c0); /* Silver and blue */
+    animation: slowRotate 18s linear infinite;
+    z-index: 0;
+    border: 1px solid rgba(135, 206, 235, 0.5); /* Blue border */
 }
 
 .inner-compass {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    width: 120px;
-    height: 120px;
+    top: 6px;
+    left: 6px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background: radial-gradient(circle at 25% 25%, #ffd700, #e6b800);
+    background: radial-gradient(circle at 30%, #f5f6f5, #e0e7ff 80%); /* Soft white to blue-tinted white */
+    opacity: 0.92;
+    z-index: 2;
 }
 
 .compass-face {
     position: absolute;
-    top: 14px;
-    left: 14px;
-    width: 92px;
-    height: 92px;
+    top: 8px;
+    left: 8px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #fff8e1, #f4e4bc, #ffd700);
-    border: 2px solid #b8860b;
-    box-shadow: inset 0 0 12px rgba(184, 134, 11, 0.4);
+    background: radial-gradient(circle at 35%, #f5f6f5, #e0e7ff 80%); /* Soft white to blue-tinted white */
+    border: 2px solid #c0c0c0; /* Silver border */
+    box-shadow: inset 0 0 10px rgba(70, 130, 180, 0.4); /* Blue shadow */
+    z-index: 3;
 }
 
 .compass-needle {
@@ -82,10 +87,11 @@
     top: 50%;
     left: 50%;
     width: 3px;
-    height: 46px;
+    height: 32px;
     transform: translate(-50%, -50%);
     transform-origin: center;
-    animation: needleFloat 5s ease-in-out infinite;
+    animation: needleFloat 3.5s ease-in-out infinite;
+    z-index: 4;
 }
 
 .needle-north {
@@ -94,11 +100,11 @@
     left: 50%;
     width: 0;
     height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 24px solid #ff4500;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 16px solid #4682b4; /* Celestial blue */
     transform: translateX(-50%);
-    filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0.8));
+    filter: drop-shadow(0 0 6px rgba(70, 130, 180, 0.8)); /* Blue glow */
 }
 
 .needle-south {
@@ -107,9 +113,9 @@
     left: 50%;
     width: 0;
     height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 24px solid #1c2526;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 16px solid #2f4f4f; /* Dark slate */
     transform: translateX(-50%);
 }
 
@@ -117,115 +123,113 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 12px;
-    height: 12px;
-    background: radial-gradient(circle, #ff8c00, #ff4500, #b22222);
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #87ceeb, #4682b4 70%); /* Blue gradient */
     border-radius: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 
-        0 0 15px rgba(255, 140, 0, 0.9),
-        inset 0 0 6px rgba(0, 0, 0, 0.3);
-    animation: gemGlow 1.8s ease-in-out infinite alternate;
+        0 0 12px rgba(70, 130, 180, 0.9), /* Blue glow */
+        inset 0 0 5px rgba(0, 0, 0, 0.2);
+    animation: gemGlow 1.2s ease-in-out infinite alternate;
+    z-index: 5;
 }
 
 .direction {
     position: absolute;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     font-family: 'Poppins', sans-serif;
-    color: #b8860b;
-    text-shadow: 0 0 4px rgba(184, 134, 11, 0.6);
+    color: #c0c0c0; /* Silver */
+    text-shadow: 0 0 3px rgba(70, 130, 180, 0.6); /* Blue glow */
+    z-index: 4;
 }
 
-.north { top: 6px; left: 50%; transform: translateX(-50%); }
-.south { bottom: 6px; left: 50%; transform: translateX(-50%); }
-.east { right: 6px; top: 50%; transform: translateY(-50%); }
-.west { left: 6px; top: 50%; transform: translateY(-50%); }
+.north { top: 4px; left: 50%; transform: translateX(-50%); }
+.south { bottom: 4px; left: 50%; transform: translateX(-50%); }
+.east { right: 4px; top: 50%; transform: translateY(-50%); }
+.west { left: 4px; top: 50%; transform: translateY(-50%); }
 
 .compass-text {
     position: absolute;
-    font-size: 20px;
-    font-weight: 900;
+    font-size: 16px;
+    font-weight: 800;
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #ffd700;
+    letter-spacing: 0.06em;
+    color: #e6e6e6; /* Silver */
     text-shadow: 
-        0 0 8px rgba(255, 215, 0, 0.8),
-        1px 1px 3px rgba(0, 0, 0, 0.9);
-    animation: textGlow 2.5s ease-in-out infinite alternate;
+        0 0 8px rgba(135, 206, 235, 0.8), /* Blue glow */
+        0.6px 0.6px 3px rgba(0, 0, 0, 0.9);
+    animation: textGlow 1.8s ease-in-out infinite alternate;
+    left: 100px;
 }
 
 .career-text {
-    top: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 18px;
+    top: 14px;
+    font-size: 14px;
 }
 
 .compass-word {
-    bottom: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 18px;
-    color: #f4a261;
+    top: 34px;
+    font-size: 14px;
+    color: #87ceeb; /* Celestial blue */
 }
 
 .decorative-ring {
     position: absolute;
-    top: -14px;
-    left: -14px;
-    width: 148px;
-    height: 148px;
-    border: 2px dashed rgba(255, 215, 0, 0.4);
+    top: -8px;
+    left: -8px;
+    width: 100px;
+    height: 100px;
+    border: 1.5px dashed rgba(135, 206, 235, 0.4); /* Blue dashed border */
     border-radius: 50%;
-    animation: slowRotateReverse 35s linear infinite;
+    animation: slowRotateReverse 25s linear infinite;
+    z-index: 0;
 }
 
 .particle {
     position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #ffd700;
+    width: 6px;
+    height: 6px;
+    background: rgba(135, 206, 235, 0.7); /* Blue particles */
     border-radius: 50%;
-    animation: particleFloat 7s ease-in-out infinite;
-    box-shadow: 0 0 6px rgba(255, 215, 0, 0.9);
+    animation: floatParticle 5s ease-in-out infinite;
+    z-index: 0;
 }
 
-.particle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
-.particle:nth-child(2) { top: 85%; right: 10%; animation-delay: 1.5s; }
-.particle:nth-child(3) { top: 25%; right: 15%; animation-delay: 3s; }
-.particle:nth-child(4) { bottom: 25%; left: 15%; animation-delay: 4.5s; }
+.particle:nth-child(1) { top: 10px; left: 20px; animation-delay: 0s; }
+.particle:nth-child(2) { top: 20px; right: 15px; animation-delay: 1s; }
+.particle:nth-child(3) { bottom: 15px; left: 25px; animation-delay: 2s; }
+.particle:nth-child(4) { bottom: 10px; right: 20px; animation-delay: 3s; }
 
 @keyframes mysticalPulse {
     0%, 100% { 
         box-shadow: 
-            0 0 30px rgba(255, 215, 0, 0.6),
-            inset 0 0 20px rgba(0, 0, 0, 0.4),
-            0 8px 30px rgba(0, 0, 0, 0.5);
+            0 0 20px rgba(135, 206, 235, 0.6), /* Blue glow */
+            inset 0 0 14px rgba(0, 0, 0, 0.3);
     }
     50% { 
         box-shadow: 
-            0 0 40px rgba(255, 215, 0, 0.9),
-            inset 0 0 25px rgba(0, 0, 0, 0.3),
-            0 10px 40px rgba(0, 0, 0, 0.6);
+            0 0 28px rgba(135, 206, 235, 0.9),
+            inset 0 0 16px rgba(0, 0, 0, 0.2);
     }
 }
 
 @keyframes needleFloat {
     0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-    25% { transform: translate(-50%, -50%) rotate(20deg); }
-    75% { transform: translate(-50%, -50%) rotate(-15deg); }
+    25% { transform: translate(-50%, -50%) rotate(12deg); }
+    75% { transform: translate(-50%, -50%) rotate(-8deg); }
 }
 
 @keyframes gemGlow {
-    0% { box-shadow: 0 0 15px rgba(255, 140, 0, 0.9), inset 0 0 6px rgba(0, 0, 0, 0.3); }
-    100% { box-shadow: 0 0 20px rgba(255, 140, 0, 1), inset 0 0 10px rgba(0, 0, 0, 0.2); }
+    0% { box-shadow: 0 0 12px rgba(70, 130, 180, 0.9), inset 0 0 5px rgba(0, 0, 0, 0.2); }
+    100% { box-shadow: 0 0 16px rgba(70, 130, 180, 1), inset 0 0 7px rgba(0, 0, 0, 0.1); }
 }
 
 @keyframes textGlow {
-    0% { text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 1px 1px 3px rgba(0, 0, 0, 0.9); }
-    100% { text-shadow: 0 0 15px rgba(255, 215, 0, 1), 1px 1px 5px rgba(0, 0, 0, 0.7); }
+    0% { text-shadow: 0 0 8px rgba(135, 206, 235, 0.8), 0.6px 0.6px 3px rgba(0, 0, 0, 0.9); }
+    100% { text-shadow: 0 0 14px rgba(135, 206, 235, 1), 0.6px 0.6px 4px rgba(0, 0, 0, 0.7); }
 }
 
 @keyframes slowRotate {
@@ -233,34 +237,34 @@
     to { transform: rotate(360deg); }
 }
 
-@keyframes slowRotateReverse禁止
-
-System: The response was cut off due to a timeout. Below is the completion of the `header.css` file, followed by the rest of the response.
-
-```css
+@keyframes slowRotateReverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
 }
 
-@keyframes particleFloat {
-    0%, 100% { opacity: 0.4; transform: translateY(0px); }
-    50% { opacity: 1; transform: translateY(-20px); }
+@keyframes floatParticle {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+    50% { transform: translateY(-10px) scale(1.2); opacity: 0.9; }
 }
 
+/* Remaining styles (nav-links, cta-btn, hamburger, media queries) remain unchanged */
 .nav-links {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     list-style: none;
 }
 
 .nav-links .nav-link {
     color: #ffffff;
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 600;
+    font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     position: relative;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.nav-links .nav-link:hover {
+.nav-links .nav-link:hover,
+.nav-links .nav-link.active {
     color: #ff6b6b;
     transform: translateY(-2px);
 }
@@ -269,35 +273,36 @@ System: The response was cut off due to a timeout. Below is the completion of th
     content: '';
     position: absolute;
     width: 0;
-    height: 3px;
-    bottom: -4px;
+    height: 2px;
+    bottom: -3px;
     left: 0;
     background: linear-gradient(to right, #ff6b6b, #c084fc);
     transition: width 0.3s ease;
 }
 
-.nav-links .nav-link:hover::after {
+.nav-links .nav-link:hover::after,
+.nav-links .nav-link.active::after {
     width: 100%;
 }
 
 .cta-btn {
-    padding: 0.7rem 2rem;
+    padding: 0.5rem 1.5rem;
     background: linear-gradient(45deg, #ff6b6b, #c084fc);
     color: #ffffff;
-    border-radius: 25px;
-    font-weight: 700;
-    font-size: 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
 }
 
 .cta-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
 }
 
 .cta-btn::before {
@@ -307,8 +312,8 @@ System: The response was cut off due to a timeout. Below is the completion of th
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.4s ease;
 }
 
 .cta-btn:hover::before {
@@ -317,22 +322,22 @@ System: The response was cut off due to a timeout. Below is the completion of th
 
 .navbar-toggler.hamburger {
     border: none;
-    padding: 0.7rem;
+    padding: 0.5rem;
     background: none;
 }
 
 .navbar-toggler.hamburger span {
-    width: 28px;
-    height: 4px;
+    width: 24px;
+    height: 3px;
     background: #ffffff;
-    margin: 4px 0;
+    margin: 3px 0;
     transition: all 0.3s ease;
-    border-radius: 3px;
+    border-radius: 2px;
     display: block;
 }
 
 .navbar-toggler.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
+    transform: rotate(45deg) translate(5px, 5px);
 }
 
 .navbar-toggler.hamburger.active span:nth-child(2) {
@@ -340,163 +345,182 @@ System: The response was cut off due to a timeout. Below is the completion of th
 }
 
 .navbar-toggler.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 @media (max-width: 992px) {
     .navbar-brand.compass-logo {
-        width: 180px;
-        height: 111.15px;
+        width: 162px;
+        height: 60px;
     }
     
     .compass-body, .inner-compass {
-        width: 90px;
-        height: 90px;
+        width: 49px;
+        height: 49px;
     }
     
     .compass-rim {
-        width: 106px;
-        height: 106px;
-        top: -8px;
-        left: -8px;
+        width: 61px;
+        height: 61px;
+        top: -6px;
+        left: -6px;
     }
     
     .compass-face {
-        width: 74px;
-        height: 74px;
-        top: 11px;
-        left: 11px;
+        width: 36px;
+        height: 36px;
+        top: 6px;
+        left: 6px;
     }
     
     .compass-needle {
-        height: 37px;
+        height: 18px;
     }
     
     .needle-north, .needle-south {
-        border-left: 5.5px solid transparent;
-        border-right: 5.5px solid transparent;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
     }
     
     .needle-north {
-        border-bottom-width: 18px;
+        border-bottom-width: 10px;
     }
     
     .needle-south {
-        border-top-width: 18px;
+        border-top-width: 10px;
     }
     
     .center-gem {
-        width: 9px;
-        height: 9px;
+        width: 6px;
+        height: 6px;
     }
     
     .direction {
-        font-size: 12px;
+        font-size: 8px;
     }
     
     .compass-text {
-        font-size: 16px;
+        font-size: 13px;
+        left: 60px;
     }
     
-    .career-text, .compass-word {
-        font-size: 14px;
+    .career-text {
+        font-size: 11px;
+        top: 10px;
+    }
+    
+    .compass-word {
+        font-size: 11px;
+        top: 24px;
     }
     
     .decorative-ring {
-        width: 114px;
-        height: 114px;
-        top: -11px;
-        left: -11px;
+        width: 61px;
+        height: 61px;
+        top: -6px;
+        left: -6px;
+    }
+    
+    .particle {
+        width: 4px;
+        height: 4px;
     }
     
     .nav-links {
-        gap: 1rem;
+        gap: 0.8rem;
     }
     
     .cta-btn {
-        padding: 0.6rem 1.5rem;
-        font-size: 0.9rem;
+        padding: 0.4rem 1.2rem;
+        font-size: 0.8rem;
     }
 }
 
 @media (max-width: 768px) {
     .navbar-brand.compass-logo {
-        width: 140px;
-        height: 86.52px;
+        width: 130px;
+        height: 50px;
     }
     
     .compass-body, .inner-compass {
-        width: 70px;
-        height: 70px;
+        width: 40px;
+        height: 40px;
     }
     
     .compass-rim {
-        width: 86px;
-        height: 86px;
-        top: -8px;
-        left: -8px;
+        width: 53px;
+        height: 53px;
+        top: -6px;
+        left: -6px;
     }
     
     .compass-face {
-        width: 58px;
-        height: 58px;
-        top: 9px;
-        left: 9px;
+        width: 29px;
+        height: 29px;
+        top: 5px;
+        left: 5px;
     }
     
     .compass-needle {
-        height: 29px;
+        height: 15px;
     }
     
     .needle-north, .needle-south {
-        border-left: 4.5px solid transparent;
-        border-right: 4.5px solid transparent;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
     }
     
     .needle-north {
-        border-bottom-width: 14px;
+        border-bottom-width: 8px;
     }
     
     .needle-south {
-        border-top-width: 14px;
+        border-top-width: 8px;
     }
     
     .center-gem {
-        width: 7px;
-        height: 7px;
+        width: 5px;
+        height: 5px;
     }
     
     .direction {
-        font-size: 10px;
+        font-size: 7px;
     }
     
     .compass-text {
-        font-size: 14px;
+        font-size: 11px;
+        left: 50px;
     }
     
-    .career-text, .compass-word {
-        font-size: 12px;
-        top: -25px;
+    .career-text {
+        font-size: 10px;
+        top: 8px;
     }
     
     .compass-word {
-        bottom: -25px;
+        font-size: 10px;
+        top: 20px;
     }
     
     .decorative-ring {
-        width: 86px;
-        height: 86px;
-        top: -8px;
-        left: -8px;
+        width: 53px;
+        height: 53px;
+        top: -6px;
+        left: -6px;
+    }
+    
+    .particle {
+        width: 3px;
+        height: 3px;
     }
     
     .nav-links {
         flex-direction: column;
         align-items: center;
-        padding: 1rem 0;
+        padding: 0.8rem 0;
     }
     
     .cta-btn {
-        margin: 1rem auto;
+        margin: 0.8rem auto;
     }
 }

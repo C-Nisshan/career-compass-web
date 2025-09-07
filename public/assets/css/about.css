@@ -1,0 +1,199 @@
+.about-main-wrapper {
+    display: flex;
+    flex: 1;
+    min-height: calc(100vh - 72px - 160px); /* Adjust for navbar and footer */
+}
+
+.about-content-container {
+    flex: 1;
+    background: #ffffff;
+    width: 100%; /* Full width for non-dashboard pages */
+    position: relative;
+    z-index: 0;
+}
+
+.about-animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, #1f2937, #374151); /* Dark gradient */
+    background-size: 600%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.about-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.about-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(168, 85, 247, 0.6); /* Purple particles from global.css */
+    border-radius: 50%;
+    animation: float 12s infinite ease-in-out;
+}
+
+.about-particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+.about-particle:nth-child(2) { top: 20%; right: 10%; animation-delay: 3s; }
+.about-particle:nth-child(3) { bottom: 15%; left: 20%; animation-delay: 6s; }
+.about-particle:nth-child(4) { bottom: 10%; right: 15%; animation-delay: 9s; }
+
+@keyframes float {
+    0% { transform: translateY(100vh) scale(0.4); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+}
+
+.about {
+    padding: 5rem 2rem;
+    background: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.about-container {
+    max-width: 1500px; /* Match global.css container */
+    margin: 0 auto;
+    text-align: center;
+    color: #1f2937;
+}
+
+.about-section-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    background: var(--primary); /* Purple gradient */
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 8px var(--glow);
+}
+
+.about-container p {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-testimonials {
+    padding: 6rem 2rem;
+    background: var(--light); /* Light gray background */
+}
+
+.about-testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1500px; /* Match global.css container */
+    margin: 0 auto;
+}
+
+.about-testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+    transition: transform 0.5s ease;
+    z-index: 0;
+}
+
+.about-testimonial-card:hover::before {
+    transform: scale(1.5);
+}
+
+.about-testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px var(--glow);
+}
+
+.about-testimonial-card p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.about-testimonial-card h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1f2937;
+    position: relative;
+    z-index: 1;
+}
+
+.about-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .about-section-title {
+        font-size: 2.5rem;
+    }
+
+    .about-container p {
+        font-size: 1.1rem;
+    }
+
+    .about-testimonials {
+        padding: 4rem 1rem;
+    }
+
+    .about-testimonial-card {
+        padding: 1.5rem;
+    }
+
+    .about-content-container {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .about {
+        padding: 4rem 1rem;
+    }
+
+    .about-testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+}

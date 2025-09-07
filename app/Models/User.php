@@ -2,37 +2,47 @@
 
 namespace App\Models;
 
-use App\Enums\RoleEnum;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use App\Enums\RoleEnum;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use UuidTrait, SoftDeletes;
+    use Notifiable, UuidTrait, SoftDeletes;
 
-    protected $table = 'users';
+    protected $primaryKey = 'uuid';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
+        'uuid',
         'email',
         'password',
         'role',
         'status',
         'is_active',
-        'email_verified_at',
+        'token_version',
+        'first_name',
+        'last_name',
+        'phone',
+        'address',
+        'nic_number',
+        'profile_picture',
+    ];
+
+    protected $hidden = [
+        'password',
+        'token_version',
     ];
 
     protected $casts = [
-        'role' => RoleEnum::class,
         'is_active' => 'boolean',
-        'email_verified_at' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
+        'token_version' => 'integer',
+        'role' => RoleEnum::class, // Cast role to enum
     ];
-
-    protected $hidden = ['password'];
 
     public function getJWTIdentifier()
     {
@@ -41,7 +51,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'token_version' => $this->token_version,
+        ];
     }
 
     public function profile()
@@ -57,5 +69,15 @@ class User extends Authenticatable implements JWTSubject
     public function mentorProfile()
     {
         return $this->hasOne(MentorProfile::class, 'user_id', 'uuid');
+    }
+
+    public function feedbackGiven()
+    {
+        return $this->hasMany(MentorFeedback::class, 'student_id', 'uuid');
+    }
+
+    public function feedbackReceived()
+    {
+        return $this->hasMany(MentorFeedback::class, 'mentor_id', 'uuid');
     }
 }
